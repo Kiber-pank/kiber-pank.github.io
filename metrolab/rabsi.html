@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MetroLab CRM</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+</head>
+
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Рабочее СИ</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="numFif" class="form-label">Номер в перечне ФИФ ОЕИ</label>
+                                <input type="text" class="form-control" id="numFif">
+                            </div>
+                            <div class="col-6">
+                                <label for="raz" class="form-label">Разряд эталона</label>
+                                <input type="text" class="form-control" id="raz">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="regNum" class="form-label">Регистрационный номер типа СИ</label>
+                                <input type="text" class="form-control" id="regNum">
+                            </div>
+                            <div class="col-6">
+                                <label for="diap" class="form-label">Диапазон измерений</label>
+                                <input type="text" class="form-control" id="diap">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="nameType" class="form-label">Наименование типа СИ</label>
+                                <input type="text" class="form-control" id="nameType">
+                            </div>
+                            <div class="col-6">
+                                <label for="numSv" class="form-label">Номер свидетельства</label>
+                                <input type="text" class="form-control" id="numSv">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="zavNum" class="form-label">Заводской номер</label>
+                                <input type="text" class="form-control" id="zavNum">
+                            </div>
+                            <div class="col-6">
+                                <label for="datePov" class="form-label">Дата поверки</label>
+                                <input type="date" class="form-control" id="datePov">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="razr" class="form-label">Разряд эталона</label>
+                                <input type="text" class="form-control" id="razr">
+                            </div>
+                            <div class="col-6">
+                                <label for="dateEnd" class="form-label">Действительна до</label>
+                                <input type="date" class="form-control" id="dateEnd">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">MetroLab CRM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page"
+                            href="./company.html">Главная</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Лаборатория</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./labinfo.html">Информация</a></li>
+                            <li><a class="dropdown-item" href="./labsotr.html">Сотрудники</a></li>
+                            <li><a class="dropdown-item" href="./labsetup.html">Управление</a></li>
+                            <!--                             <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+ -->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Средства измерения</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="./rabsi.html">Рабочие СИ</a></li>
+                            <li><a class="dropdown-item" href="#">Эталоны</a></li>
+                            <li><a class="dropdown-item" href="#">ГСО</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Контрагенты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Поверки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">ГРСИ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row mt-3 mb-2">
+            <div class="col-10">
+                <h1>Рабочие средства измерения</h1>
+            </div>
+            <div class="col-2 align-content-around">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Добавить
+                </button>
+            </div>
+        </div>
+        <div class="mt-3 mb-2 table-responsive row">
+            <table class="table mt-3 mb-2 display nowrap table-sm" id="example">
+                <thead>
+                    <tr>
+                        <th>Номер в перчне ФИФ ОЕИ</th>
+                        <th>Регистрационный номер типа СИ</th>
+                        <th>Наименование типа СИ</th>
+                        <th>Модификация СИ</th>
+                        <th>Заводской номер</th>
+                        <th>Разряд эталона</th>
+                        <th>Диапозон измерений</th>
+                        <th>Номер свидетельства</th>
+                        <th>Дата поверки</th>
+                        <th>Действительна до</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6332.77.4Р.00843704</td>
+                        <td>6332-77</td>
+                        <td>Магазины сопротивления</td>
+                        <td>Р4831</td>
+                        <td>09188</td>
+                        <td>эталон 4-го разряда</td>
+                        <td></td>
+                        <td>С-ВЦЛ/26-04-2024/335421700</td>
+                        <td>26.04.2024</td>
+                        <td>25.04.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>65287.16.1Р.01118868</td>
+                        <td>65287-16</td>
+                        <td>Установки поверочные</td>
+                        <td>СПУ-3М мод. 40 исп. Б</td>
+                        <td>8367</td>
+                        <td>эталон 1-го разряда</td>
+                        <td>0,04 - 40,0 м3</td>
+                        <td>С-З/13-06-2024/347443839</td>
+                        <td>13.06.2024</td>
+                        <td>12.06.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>67910.17.2Р.00570707</td>
+                        <td>67910-17</td>
+                        <td>Рулетки измерительные металлические</td>
+                        <td>TS30/2</td>
+                        <td>1965</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 30,0 м</td>
+                        <td>С-АО/15-08-2023/270245788</td>
+                        <td>15.08.2024</td>
+                        <td>14.08.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.01183215</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4196293</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>-0,1 - 2,0 МПа</td>
+                        <td>С-АМ/07-10-2024/376330908</td>
+                        <td>07.10.2024</td>
+                        <td>06.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.00952557</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4237974</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 0,22 МПа изб.</td>
+                        <td>С-АМ/25-09-2023/282187039</td>
+                        <td>25.09.2023</td>
+                        <td>24.09.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.00952558</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4237974</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 0,2 МПа абс.</td>
+                        <td>С-АМ/25-09-2023/282187040</td>
+                        <td>25.09.2023</td>
+                        <td>24.09.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.00952552</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4071777</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 7,0 МПа</td>
+                        <td>С-АМ/25-09-2023/282187022</td>
+                        <td>25.09.2023</td>
+                        <td>24.09.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>19818.00.5Р.00976005</td>
+                        <td>19818-00</td>
+                        <td>Частотомеры универсальные</td>
+                        <td>GFC-8270H</td>
+                        <td>GCR900946</td>
+                        <td>эталон 5-го разряда</td>
+                        <td>единиц времени, частоты и национал. шкалы времени</td>
+                        <td>С-АМ/30-10-2023/290405287</td>
+                        <td>30.10.2023</td>
+                        <td>29.10.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>32777.06.3Р.00980307</td>
+                        <td>32777-06</td>
+                        <td>Термометры сопротивления платиновые вибропрочные эталонные</td>
+                        <td>ПТСВ-5-3</td>
+                        <td>1656</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>-50,0 - 0,0 С</td>
+                        <td>С-АМ/03-11-2023/292206692</td>
+                        <td>03.11.2023</td>
+                        <td>02.11.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>32777.06.3Р.00980308</td>
+                        <td>32777-06</td>
+                        <td>Термометры сопротивления платиновые вибропрочные эталонные</td>
+                        <td>ПТСВ-5-3</td>
+                        <td>1656</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 250,0 С</td>
+                        <td>С-АМ/03-11-2023/292206694</td>
+                        <td>03.11.2023</td>
+                        <td>02.11.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>23245.08.4Р.00997660</td>
+                        <td>23245-08</td>
+                        <td>Преобразователи сигналов ТС и ТП прецизионные</td>
+                        <td>Теркон</td>
+                        <td>837705</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>электр. сопротивления постоянного тока</td>
+                        <td>С-ГХТ/27-11-2023/297651288</td>
+                        <td>27.11.2023</td>
+                        <td>26.11.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>23245.08.3Р.00997659</td>
+                        <td>23245-08</td>
+                        <td>Преобразователи сигналов ТС и ТП прецизионные</td>
+                        <td>Теркон</td>
+                        <td>837705</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>постоянного электр. напряжения</td>
+                        <td>С-ГХТ/27-11-2023/297651284</td>
+                        <td>27.11.2023</td>
+                        <td>26.11.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>58668.14.1Р.01009450</td>
+                        <td>58668-14</td>
+                        <td>Преобразователи давления эталонные</td>
+                        <td>ПДЭ-020И-ДИ-190Е-АО</td>
+                        <td>10081470</td>
+                        <td>эталон 1-го разряда</td>
+                        <td>0,0 - 50,0 МПа</td>
+                        <td>С-АМ/11-12-2023/301500357</td>
+                        <td>11.12.2023</td>
+                        <td>10.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>58668.14.2Р.01007482</td>
+                        <td>58668-14</td>
+                        <td>Преобразователи давления эталонные</td>
+                        <td>ПДЭ-020И-ДИ-190Е-АО</td>
+                        <td>10081470</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 100,0 МПа</td>
+                        <td>С-АМ/11-12-2023/300891537</td>
+                        <td>11.12.2023</td>
+                        <td>10.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>74630.19.2Р.01011102</td>
+                        <td>74630-19</td>
+                        <td>Установки поверочные УПСЖ-ПРО</td>
+                        <td>0005-0000-С-Т-ОР-0,01-10/30</td>
+                        <td>149</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,01 - 5,0 м3/ч</td>
+                        <td>С-З/12-12-2023/302070310</td>
+                        <td>12.12.2023</td>
+                        <td>11.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>74630.19.3Р.01011103</td>
+                        <td>74630-19</td>
+                        <td>Установки поверочные УПСЖ-ПРО</td>
+                        <td>0005-0000-С-Т-ОР-0,01-10/30</td>
+                        <td>149</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,005 - 0,01 м3/ч</td>
+                        <td>С-З/12-12-2023/302070311</td>
+                        <td>12.12.2023</td>
+                        <td>11.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>70866.18.1Р.00769285</td>
+                        <td>70866-18</td>
+                        <td>Генераторы газовых смесей</td>
+                        <td>ГГС-У</td>
+                        <td>576</td>
+                        <td>эталон 1-го разряда</td>
+                        <td></td>
+                        <td>С-В/14-12-2023/302739600</td>
+                        <td>14.12.2023</td>
+                        <td>13.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>69742.17.4Р.00535196</td>
+                        <td>69742-17</td>
+                        <td>Вольтметры универсальные</td>
+                        <td>В7-78/3</td>
+                        <td>TW00031793</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>единица электрич. сопротивления</td>
+                        <td>С-АМ/15-12-2023/302136783</td>
+                        <td>15.12.2023</td>
+                        <td>14.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>69742.17.3Р.00535197</td>
+                        <td>69742-17</td>
+                        <td>Вольтметры универсальные</td>
+                        <td>В7-78/3</td>
+                        <td>TW00031793</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>единица пост. электр. напряжения</td>
+                        <td>С-АМ/15-12-2023/302136786</td>
+                        <td>15.12.2023</td>
+                        <td>14.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>69742.17.2Р.00535195</td>
+                        <td>69742-17</td>
+                        <td>Вольтметры универсальные</td>
+                        <td>В7-78/3</td>
+                        <td>TW00031793</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>единица силы пост. электр. тока</td>
+                        <td>С-АМ/15-12-2023/302136784</td>
+                        <td>15.12.2023</td>
+                        <td>14.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1162.58.3Р.00731225</td>
+                        <td>1162-58</td>
+                        <td>Катушки электрического сопротивления измерительные</td>
+                        <td>Р331</td>
+                        <td>076611</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>100,0 Ом</td>
+                        <td>С-АО/20-12-2023/303099518</td>
+                        <td>20.12.2023</td>
+                        <td>19.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9084.83.5Р.01020689</td>
+                        <td>9084-83</td>
+                        <td>Частотомеры электронно-счетные</td>
+                        <td>Ч3-63</td>
+                        <td>8702346</td>
+                        <td>эталон 5-го разряда</td>
+                        <td>времини и частоты по каналам А и Б</td>
+                        <td>С-АМ/27-12-2023/305015018</td>
+                        <td>27.12.2023</td>
+                        <td>26.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17567.09.5Р.00744782</td>
+                        <td>17567-09</td>
+                        <td>Стенды</td>
+                        <td>СКС6</td>
+                        <td>1010</td>
+                        <td>эталон 5-го разряда</td>
+                        <td>измерений времини и частоты</td>
+                        <td>С-АО/10-01-2024/306921536</td>
+                        <td>10.01.2024</td>
+                        <td>09.01.2026</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17567.09.4Р.00744783</td>
+                        <td>17567-09</td>
+                        <td>Стенды</td>
+                        <td>СКС6</td>
+                        <td>1010</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>единица электр. сопротивления</td>
+                        <td>С-АО/10-01-2024/306921539</td>
+                        <td>10.01.2024</td>
+                        <td>09.01.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17567.09.2Р.00744784</td>
+                        <td>17567-09</td>
+                        <td>Стенды</td>
+                        <td>СКС6</td>
+                        <td>1010</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>измерение силы пост. электр. тока 1*10-16 - 100 А</td>
+                        <td>С-АО/10-01-2024/306921541</td>
+                        <td>10.01.2024</td>
+                        <td>09.01.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>303.91.3Р.01152072</td>
+                        <td>303-91</td>
+                        <td>Термометры ртутные стеклянные лабораторные</td>
+                        <td>ТЛ-4 №2</td>
+                        <td>52</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 55,0 С</td>
+                        <td>С-ДЮП/06-08-2024/363360962</td>
+                        <td>06.08.2024</td>
+                        <td>05.08.2027</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>37319.10.1Р.01018394</td>
+                        <td>37319-10</td>
+                        <td>Установки поверочные</td>
+                        <td>УПГА 0,4/2500</td>
+                        <td>21180743</td>
+                        <td>эталон 1-го разряда</td>
+                        <td>0,4 - 2500,0 м3/ч</td>
+                        <td>С-З/25-12-2023/304479536</td>
+                        <td>25.12.2023</td>
+                        <td>24.12.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>42701.09.2Р.01148313</td>
+                        <td>42701-09</td>
+                        <td>Калибраторы давления пневматические</td>
+                        <td>Метран-505</td>
+                        <td>416</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 40,0 кПа</td>
+                        <td>С-АМ/12-08-2024/362104466</td>
+                        <td>12.08.2024</td>
+                        <td>11.08.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>26111.08.3Р.01163297</td>
+                        <td>26111-08</td>
+                        <td>Калибраторы температуры эталонные</td>
+                        <td>КТ-110</td>
+                        <td>21-1698</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 110,0 С</td>
+                        <td>С-ВСП/03-09-2024/367612343</td>
+                        <td>03.09.2024</td>
+                        <td>02.09.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>26111.08.3Р.01163298</td>
+                        <td>26111-08</td>
+                        <td>Калибраторы температуры эталонные</td>
+                        <td>КТ-110</td>
+                        <td>21-1698</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>-40,0 - 0,0 С</td>
+                        <td>С-ВСП/03-09-2024/367612344</td>
+                        <td>03.09.2024</td>
+                        <td>02.09.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>36112.07.1Р.00954851</td>
+                        <td>36112-07</td>
+                        <td>Калибраторы многофункциональные</td>
+                        <td>DPI 880</td>
+                        <td>4234696</td>
+                        <td>эталон 1-го разряда</td>
+                        <td>в режиме воспроизведения единиц силы постоянного электрического тока</td>
+                        <td>С-АМ/01-10-2024/376688135</td>
+                        <td>01.10.2024</td>
+                        <td>30.09.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>36112.07.3Р.00954852</td>
+                        <td>36112-07</td>
+                        <td>Калибраторы многофункциональные</td>
+                        <td>DPI 880</td>
+                        <td>4234696</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>постоянного электрического напряжения</td>
+                        <td>С-АМ/01-10-2024/376688136</td>
+                        <td>01.10.2024</td>
+                        <td>30.09.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>36112.07.4Р.00954853</td>
+                        <td>36112-07</td>
+                        <td>Калибраторы многофункциональные</td>
+                        <td>DPI 880</td>
+                        <td>4234696</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>единицы электрического сопротивления</td>
+                        <td>С-АМ/01-10-2024/376688137</td>
+                        <td>01.10.2024</td>
+                        <td>30.09.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.4Р.01183217</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4081961</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>-2,5 - 2,5 кПа</td>
+                        <td>С-АМ/07-10-2024/376330910</td>
+                        <td>07.10.2024</td>
+                        <td>06.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.01183220</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4237974</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 0,22 МПа</td>
+                        <td>С-АМ/07-10-2024/376330916</td>
+                        <td>07.10.2024</td>
+                        <td>06.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.01183221</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4237974</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 0,2 МПа абс.дав.</td>
+                        <td>С-АМ/07-10-2024/376330917</td>
+                        <td>07.10.2024</td>
+                        <td>06.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40755.09.3Р.01183216</td>
+                        <td>40755-09</td>
+                        <td>Преобразователи давления измерительные</td>
+                        <td>IDOS, MCX-PM, PM620</td>
+                        <td>4071777</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>0,0 - 7,0 МПа</td>
+                        <td>С-АМ/07-10-2024/376330909</td>
+                        <td>07.10.2024</td>
+                        <td>06.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>поверка имитационным методом</td>
+                        <td>01.01.2015</td>
+                        <td>31.12.2049</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199047</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 1MA</td>
+                        <td>5807</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 1,0 МПа</td>
+                        <td>С-АМ/24-10-2024/383625920</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199045</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 D63KA</td>
+                        <td>5809</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>-63,0 - 63,0 кПа</td>
+                        <td>С-АМ/24-10-2024/383625914</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199044</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 D160KA</td>
+                        <td>5810</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>-100,0- 160,0 кПа</td>
+                        <td>С-АМ/24-10-2024/383625912</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199043</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 А1MВ</td>
+                        <td>5811</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 1,0 МПа абс. дав.</td>
+                        <td>С-АМ/24-10-2024/383625911</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199042</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 А1MВ</td>
+                        <td>5811</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 1,0 МПа</td>
+                        <td>С-АМ/24-10-2024/383625910</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199040</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 А6MВ</td>
+                        <td>5812</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 6,0 МПа абс. дав.</td>
+                        <td>С-АМ/24-10-2024/383625908</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199041</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 А6MВ</td>
+                        <td>5812</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 6,0 МПа</td>
+                        <td>С-АМ/24-10-2024/383625909 </td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199046</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 6MA</td>
+                        <td>5808</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 6,0 МПа</td>
+                        <td>С-АМ/24-10-2024/383625917</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199039</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 25MA</td>
+                        <td>5854</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 25,0 МПа</td>
+                        <td>С-АМ/24-10-2024/383625907 </td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39151.12.1Р.01203701</td>
+                        <td>39151-12</td>
+                        <td>Калибраторы давления портативные</td>
+                        <td>Метран-517</td>
+                        <td>1114</td>
+                        <td>эталон 1-го разряда</td>
+                        <td>диницы силы постоянного электрического тока</td>
+                        <td>С-АМ/28-10-2024/386706900 </td>
+                        <td>28.10.2024</td>
+                        <td>27.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39151.12.3Р.01203700</td>
+                        <td>39151-12</td>
+                        <td>Калибраторы давления портативные</td>
+                        <td>Метран-517</td>
+                        <td>1114</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>единицы электрического напряжения</td>
+                        <td>С-АМ/28-10-2024/386706899 </td>
+                        <td>28.10.2024</td>
+                        <td>27.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>19818.00.5Р.00976005</td>
+                        <td>19818-00</td>
+                        <td>Частотомеры универсальные</td>
+                        <td>GFC-8270H</td>
+                        <td>GCR900946</td>
+                        <td>эталон 5-го разряда</td>
+                        <td>0,01 Гц - 120,0 МГц - 2,7 ГГц</td>
+                        <td>С-АМ/12-11-2024/387090531</td>
+                        <td>12.11.2024</td>
+                        <td>11.11.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>74630.19.3Р.01011103</td>
+                        <td>74630-19</td>
+                        <td>Установки поверочные</td>
+                        <td>УПСЖ-ПРО 0005-0000-С-Т-ОР-0,01-10/30</td>
+                        <td>149</td>
+                        <td>эталон 3-го разряда</td>
+                        <td></td>
+                        <td>С-З/12-12-2023/302070311</td>
+                        <td>12.12.2023</td>
+                        <td>11.12.2024</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39152.12.2Р.01199048</td>
+                        <td>39152-12</td>
+                        <td>Модули давления эталонные</td>
+                        <td>Метран-518 160KA</td>
+                        <td>5806</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 160,0 кПа</td>
+                        <td>С-АМ/24-10-2024/383625924</td>
+                        <td>24.10.2024</td>
+                        <td>23.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>50907.12.3Р.00770839</td>
+                        <td>50907-12</td>
+                        <td>Калибраторы температуры</td>
+                        <td>КТ-3</td>
+                        <td>238</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>300,0 - 1100,0 С</td>
+                        <td>С-ДЮП/16-01-2024/308655671</td>
+                        <td>16.01.2024</td>
+                        <td>15.01.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>70903.18.2Р.01215774</td>
+                        <td>70903-18</td>
+                        <td>Термометры сопротивления эталонные</td>
+                        <td>исполнение ЭТС-100М2</td>
+                        <td>309</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>-196.0 - 0.0 C</td>
+                        <td>С-В/29-11-2024/391044519</td>
+                        <td>29.11.2024</td>
+                        <td>28.11.2026</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>70903.18.2Р.01215775</td>
+                        <td>70903-18</td>
+                        <td>Термометры сопротивления эталонные</td>
+                        <td>исполнение ЭТС-100М2</td>
+                        <td>309</td>
+                        <td>эталон 2-го разряда</td>
+                        <td>0,0 - 419,0 С</td>
+                        <td>С-В/29-11-2024/391044520</td>
+                        <td>29.11.2024</td>
+                        <td>28.11.2026</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>23245.08.4Р.00997660</td>
+                        <td>23245-08</td>
+                        <td>Преобразователи сигналов ТС и ТП прецизионные</td>
+                        <td>Теркон</td>
+                        <td>837705</td>
+                        <td>эталон 4-го разряда</td>
+                        <td>Мера электрического сопротивления постоянного тока</td>
+                        <td>С-ГХТ/28-10-2024/382801071</td>
+                        <td>28.10.2024</td>
+                        <td>27.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>23245.08.3Р.00997659</td>
+                        <td>23245-08</td>
+                        <td>Преобразователи сигналов ТС и ТП прецизионные</td>
+                        <td>Теркон</td>
+                        <td>837705</td>
+                        <td>эталон 3-го разряда</td>
+                        <td>Мера постоянного напряжения</td>
+                        <td>С-ГХТ/28-10-2024/382801070</td>
+                        <td>28.10.2024</td>
+                        <td>27.10.2025</td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Basic mixed styles example'><button
+                                    type='button' class='btn btn-outline-primary' data-bs-toggle='modal'
+                                    data-bs-target='#exampleModal'>Изменить</button><button type='button'
+                                    class='btn btn-danger'>Удалить</button></div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-primary">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; MetroLab CRM 2025</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script>
+        new DataTable('#example', {
+            scrollX: true
+        });
+    </script>
+</body>
+
+</html>

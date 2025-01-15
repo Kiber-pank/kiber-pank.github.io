@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Хороший повод</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Кондитерское изделие</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-4">
+                    <img src="assets/img/15887711_1.jpg" class="img-fluid" alt="...">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <dt class="col-sm-3">Название:</dt>
+                        <dd class="col-sm-9"><h1>Esfero Luxe</h1></dd>
+                        <dt class="col-sm-3">Категория:</dt>
+                        <dd class="col-sm-9">Конфеты шоколадные кремовые</dd>
+                        <dt class="col-sm-3">Производитель:</dt>
+                        <dd class="col-sm-9">Конти</dd>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div class="row">
+                                <dt class="col-5">Энергетическая ценность в 100гр:</dt>
+                                <dd class="col-7">461 ккал</dd>
+                                <dt class="col-5">Белки в 100 г:</dt>
+                                <dd class="col-7">4.5 г</dd>
+                                <dt class="col-5">Жиры в 100 г</dt>
+                                <dd class="col-7">16 г</dd>
+                                <dt class="col-5">Углеводы в 100 г</dt>
+                                <dd class="col-7">67 г</dd>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h5 class="card-header">Описание</h5>
+                <div class="card-body">
+                    <p class="card-text">Конфеты на основе мягкой карамели с добавлением дробленого арахиса, изюма и воздушного риса.</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="management.html">Хороший повод</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+<!--                 <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div> -->
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+<!--                         <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li> -->
+                        <li><a class="dropdown-item" href="#!">Выход</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+<!--                             <div class="sb-sidenav-menu-heading">Управление</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Сводки
+                            </a>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Задачи
+                            </a> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Управление
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Сводки</a>
+                                    <a class="nav-link" href="#">Задачи</a>
+                                    <a class="nav-link" href="#">Настойки</a>
+                                </nav>
+                            </div>
+                            <!-- <div class="sb-sidenav-menu-heading">Исходники</div> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#ishod" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Исходники
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="ishod" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="confections.html">Кондиттерские изделия</a>
+                                    <a class="nav-link" href="#.html">Упаковка</a>
+                                    <a class="nav-link" href="#.html">Вложения</a>
+                                </nav>
+                            </div>
+<!--                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#nabor" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Наборы
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="nabor" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Наборы кондитерсих изделий</a>
+                                    <a class="nav-link" href="#">Полные наборы</a>
+<!--                                     <a class="nav-link" href="layout-sidenav-light.html">Вложения</a> -->
+                                </nav>
+                            </div>
+                            <a class="nav-link" href="management.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Контрагенты
+                            </a>
+                            <a class="nav-link" href="management.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Заказы
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sklad" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Склад
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="sklad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Наличие</a>
+                                    <a class="nav-link" href="#">Закупки</a>
+                                    <a class="nav-link" href="#">Замены</a>
+                                    <a class="nav-link" href="#">Сборка</a>
+                                    <a class="nav-link" href="#">Доставка</a>
+<!--                                     <a class="nav-link" href="layout-sidenav-light.html">Вложения</a> -->
+                                </nav>
+                            </div>
+<!--                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div> -->
+<!--                             <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a> -->
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Роль:</div>
+                        Администратор
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Кондиттерские изделия</h1>
+<!--                         <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Кондиттерские изделия</li>
+                        </ol> -->
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Кондиттерские изделия
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Наименование</th>
+                                            <th>Производитель</th>
+                                            <th>Категория</th>
+                                            <th>Стоимость</th>
+                                            <th>Наличие</th>
+                                            <th>Статус</th>
+                                        </tr>
+                                    </thead>
+<!--                                     <tfoot>
+                                        <tr>
+                                            <th class="col-3">Наименование</th>
+                                            <th class="col-3">Производитель</th>
+                                            <th class="col-3">Категория</th>
+                                            <th class="col-2">Стоимость</th>
+                                            <th class="col-2">Наличие</th>
+                                            <th class="col-2">Статус</th>
+                                        </tr>
+                                    </tfoot> -->
+                                    <tbody id="table_body">
+                                        <tr><td>Киндер Джой</td><td>Ферреро</td><td>Шоколадное яйцо</td><td>5 384,50 ₽</td><td>50</td><td>берем</td></tr>
+<tr><td>Kinder Surprise</td><td>Ферреро</td><td>Шоколадное яйцо</td><td>4 252,00 ₽</td><td>50</td><td>берем</td></tr>
+<tr><td>Яйцо кондитерское «Сладкие крохи» с коллекц. собачкой и лифлетом в капсуле, ТМ Mr.Chokky, 6*24 20г</td><td>Юнион</td><td>Шоколадное яйцо</td><td>3 459,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Рафаэлло</td><td>Ферреро</td><td>Конфеты шоколадные кремовые</td><td>2 273,75 ₽</td><td>25</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 735,22 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Коркунов</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 722,22 ₽</td><td>11</td><td>берем</td></tr>
+<tr><td>Коркунов</td><td>Марс</td><td>Шоколад плитка горький</td><td>1 722,22 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Коркунов</td><td>Марс</td><td>Шоколад плитка горький</td><td>1 722,22 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Коркунов</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 722,22 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Kinder Bueno</td><td>Ферреро</td><td>Шоколадный батончик</td><td>1 636,74 ₽</td><td>23</td><td>только если очень надо</td></tr>
+<tr><td>Перу</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 636,50 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Эквадор</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 636,50 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 630,00 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Печенье Oreo Mini</td><td>Мон'дэлис</td><td>Печенье</td><td>1 618,30 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Печенье Oreo Mini</td><td>Мон'дэлис</td><td>Печенье</td><td>1 618,30 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели кофе мокка с марципаном</td><td>Победа вкуса</td><td>Трюфель</td><td>1 584,00 ₽</td><td>56</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели тирамису с марципаном</td><td>Победа вкуса</td><td>Трюфель</td><td>1 584,00 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Рулада</td><td>акконд</td><td>Десерт</td><td>1 584,00 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 539,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 539,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед    Слим энд фит</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 525,33 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 489,35 ₽</td><td>4</td><td>только если очень надо</td></tr>
+<tr><td>Kinder шоколад макси</td><td>Ферреро</td><td>Шоколадный батончик</td><td>1 450,00 ₽</td><td>50</td><td>только если очень надо</td></tr>
+<tr><td>Kinder Delis</td><td>Ферреро</td><td></td><td>1 397,14 ₽</td><td>24</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад молочный без сахара, 36%, 50 г</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 376,80 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед  Лифтинг</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 373,89 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 373,89 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед Иммунити</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 373,89 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед Лав</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 373,89 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед Энержи</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 373,89 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 370,20 ₽</td><td>3</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 370,20 ₽</td><td>3</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 370,20 ₽</td><td>3</td><td>только если очень надо</td></tr>
+<tr><td>Альпийское молоко</td><td>Риттер спорт </td><td>Шоколад плитка молочный</td><td>1 352,40 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Лесной орех</td><td>Риттер спорт </td><td>Шоколад плитка молочный</td><td>1 352,40 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Meller</td><td>Перфетти ван мелле</td><td>ирис</td><td>1 343,95 ₽</td><td>26</td><td>не ставить!</td></tr>
+<tr><td>Трюфели классические с марципаном</td><td>Победа вкуса</td><td>Трюфель</td><td>1 267,20 ₽</td><td>59</td><td>берем</td></tr>
+<tr><td>Шоколад молочный без сахара, 36%, 100 г</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 267,20 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Dove</td><td>Марс</td><td>Шоколад плитка молочный</td><td>1 244,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>kinder шоколад</td><td>Ферреро</td><td>Шоколад плитка молочный</td><td>1 204,40 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>M&M's  CRISPY </td><td>Марс</td><td>Драже</td><td>1 200,00 ₽</td><td>28</td><td>только если очень надо</td></tr>
+<tr><td>Фрутелла</td><td>Перфетти ван мелле</td><td>конфеты жевательные</td><td>1 190,00 ₽</td><td>24</td><td>не ставить!</td></tr>
+<tr><td>Трюфели грецкий орех с марципаном</td><td>Победа вкуса</td><td>Трюфель</td><td>1 188,00 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Вафли Milka Choco Wafer</td><td>Мон'дэлис</td><td>Вафли</td><td>1 175,33 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад Alpen Gold MaxFun </td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 149,87 ₽</td><td>7</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад Alpen Gold MaxFun </td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 149,87 ₽</td><td>7</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад Alpen Gold MaxFun </td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 149,87 ₽</td><td>7</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад Alpen Gold MaxFun </td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 149,87 ₽</td><td>7</td><td>только если очень надо</td></tr>
+<tr><td>Дед Мороз</td><td>Победа вкуса</td><td>Шоколад фигурный</td><td>1 146,83 ₽</td><td>17</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад MILKA</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 133,88 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Шоколадный батончик Picnic Грецкий орех</td><td>Мон'дэлис</td><td>Шоколадный батончик</td><td>1 125,77 ₽</td><td>19</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад белый с клубникой</td><td>Победа вкуса</td><td>Шоколад плитка белый</td><td>1 106,20 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели шоколадные без добавления сахара</td><td>Победа вкуса</td><td>Трюфель</td><td>1 102,20 ₽</td><td>56</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад десертный с орехом</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 095,60 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 081,65 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD</td><td>Мон'дэлис</td><td>Шоколад плитка белый</td><td>1 081,65 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 081,65 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 081,65 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 081,65 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>kinder шоколад</td><td>Ферреро</td><td>Шоколадный батончик</td><td>1 056,90 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад десертный с орехом и изюмом</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 049,40 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Шоколадный батончик Picnic Aрахис</td><td>Мон'дэлис</td><td>Шоколадный батончик</td><td>1 043,95 ₽</td><td>26</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад молочный, 32%, 50 г</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 034,80 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад сливочный, 34%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 034,80 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>SKITTLES ФРУКТЫ</td><td>Марс</td><td>Драже</td><td>1 027,89 ₽</td><td>26</td><td>берем</td></tr>
+<tr><td>SKITTLES 2 В 1 </td><td>Марс</td><td>Драже</td><td>1 027,89 ₽</td><td>26</td><td>не ставить!</td></tr>
+<tr><td>SKITTLES КИЛОМИКС</td><td>Марс</td><td>Драже</td><td>1 027,89 ₽</td><td>26</td><td>не ставить!</td></tr>
+<tr><td>Шоколад ALPEN GOLD OREO</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 020,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад ALPEN GOLD OREO</td><td>Мон'дэлис</td><td>Шоколад плитка молочный</td><td>1 020,44 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>M&M's</td><td>Марс</td><td>Драже</td><td>1 016,89 ₽</td><td>22</td><td>берем</td></tr>
+<tr><td>M&M's</td><td>Марс</td><td>Драже</td><td>1 016,89 ₽</td><td>22</td><td>берем</td></tr>
+<tr><td>M&M's</td><td>Марс</td><td>Драже</td><td>1 016,89 ₽</td><td>22</td><td>не ставить!</td></tr>
+<tr><td>Шоколад молочный с кусочками цельного ореха</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>1 009,80 ₽</td><td>10</td><td>берем</td></tr>
+<tr><td>Новогодний</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>998,00 ₽</td><td>20</td><td>берем</td></tr>
+<tr><td>Alten Burg молоко-арахис</td><td>Шоколатье</td><td>Шоколад плитка молочный</td><td>983,80 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>SKITTLES КИЛОМИКС</td><td>Марс</td><td>Драже</td><td>970,00 ₽</td><td>14</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед</td><td>Победа вкуса</td><td>Конфеты шоколадные вафельные</td><td>963,60 ₽</td><td>77</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад белый</td><td>Победа вкуса</td><td>Шоколад плитка белый</td><td>942,50 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Чупа-чупс</td><td>Перфетти ван мелле</td><td>Карамель </td><td>926,67 ₽</td><td>83</td><td>не ставить!</td></tr>
+<tr><td>Шоколад сливочный, 34%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>924,00 ₽</td><td>40</td><td>только если очень надо</td></tr>
+<tr><td>С Новым годом!</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>924,00 ₽</td><td>40</td><td>берем</td></tr>
+<tr><td>Шоколад молочный, 30%</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>924,00 ₽</td><td>40</td><td>только если очень надо</td></tr>
+<tr><td>MILKY WAY</td><td>Марс</td><td>Шоколадный батончик</td><td>923,08 ₽</td><td>38</td><td>только если очень надо</td></tr>
+<tr><td>MILKY WAY® Клубничный</td><td>Марс</td><td>Шоколадный батончик</td><td>923,08 ₽</td><td>38</td><td>только если очень надо</td></tr>
+<tr><td>Пироженое МЕДВЕЖОНОК БАРНИ</td><td>Мон'дэлис</td><td>Пирожное бисквитное</td><td>901,67 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Пироженое МЕДВЕЖОНОК БАРНИ</td><td>Мон'дэлис</td><td>Пирожное бисквитное</td><td>901,67 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Чаржед</td><td>Победа вкуса</td><td>Конфеты шоколадные вафельные</td><td>897,60 ₽</td><td>77</td><td>только если очень надо</td></tr>
+<tr><td>Взрывные пчелки</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>892,63 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>Взрывные пчелки</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>892,63 ₽</td><td>13</td><td>берем</td></tr>
+<tr><td>Шоколад молочный, 32%, 100 г</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>882,90 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>«Россия» - щедрая душа! Золотая марка</td><td>Nestle</td><td>Шоколад плитка молочный</td><td>879,50 ₽</td><td>13</td><td>не ставить!</td></tr>
+<tr><td>ЖЕВАТЕЛЬНАЯ КОНФЕТА СО ВКУСАМИ ВИШНИ, МАЛИНЫ, АНАНАСА, ЕЖЕВИКИ, ТМ "HELLO KITTY"</td><td>Юнион</td><td>конфеты жевательные</td><td>874,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Мишки в лесу</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>871,11 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>SKITTLES 2 В 1 </td><td>Марс</td><td>Драже</td><td>870,00 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>SKITTLES ФРУКТЫ</td><td>Марс</td><td>Драже</td><td>870,00 ₽</td><td>14</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад сливочный, 34%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>859,00 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Птица счастья</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>847,11 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели шоколадные классические</td><td>Победа вкуса</td><td>Трюфель</td><td>844,80 ₽</td><td>56</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели шоколадные каппучино</td><td>Победа вкуса</td><td>Трюфель</td><td>844,80 ₽</td><td>56</td><td>только если очень надо</td></tr>
+<tr><td>Трюфели шоколадные с абрикосом</td><td>Победа вкуса</td><td>Трюфель</td><td>844,80 ₽</td><td>56</td><td>берем</td></tr>
+<tr><td>Птица счастья</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>840,33 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Баба Яга клубника</td><td>Сладкая сказка</td><td>конфеты жевательные</td><td>839,77 ₽</td><td>91</td><td>не ставить!</td></tr>
+<tr><td>Белочка</td><td>Славянка</td><td>Конфеты шоколадные пралине</td><td>838,50 ₽</td><td>67</td><td>только если очень надо</td></tr>
+<tr><td>«Россия» - щедрая душа! Золотая марка</td><td>Nestle</td><td>Шоколад плитка белый</td><td>827,76 ₽</td><td>12</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! Золотая марка</td><td>Nestle</td><td>Шоколад плитка белый</td><td>827,76 ₽</td><td>12</td><td>не ставить!</td></tr>
+<tr><td>БОН ПАРИ</td><td>Nestle</td><td>Суфле</td><td>823,38 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>Тринкета bubble gum</td><td>Сладкая сказка</td><td>жидкая конфета</td><td>823,21 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>Тринкета арбуз</td><td>Сладкая сказка</td><td>жидкая конфета</td><td>823,21 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>Тринкета жидкая конфета со вкусом персика</td><td>Сладкая сказка</td><td>жидкая конфета</td><td>823,21 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>Тринкета клубника</td><td>Сладкая сказка</td><td>жидкая конфета</td><td>823,21 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>Тринкета кола</td><td>Сладкая сказка</td><td>жидкая конфета</td><td>823,21 ₽</td><td>14</td><td>не ставить!</td></tr>
+<tr><td>Жевательная конфета кислая со вкусом колы, ТМ Шок-щербет, 9*75 20 г</td><td>Юнион</td><td>конфеты жевательные</td><td>819,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Жевательная конфета кислая со вкусом яблока, ТМ Шок-щербет, 9*75 20 г</td><td>Юнион</td><td>конфеты жевательные</td><td>819,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Жевательная конфета кислая со вкусом апельсина, ТМ Шок-щербет, 9*75 20 г</td><td>Юнион</td><td>конфеты жевательные</td><td>819,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Жевательная конфета кислая со вкусом клубники, ТМ Шок-щербет, 9*75 20 г</td><td>Юнион</td><td>конфеты жевательные</td><td>819,50 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Мишки в лесу</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>816,75 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>Белочка</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>816,75 ₽</td><td>13</td><td>берем</td></tr>
+<tr><td>Новогодний</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>816,75 ₽</td><td>13</td><td>берем</td></tr>
+<tr><td>TWIX® ‘Xtra </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>MARS® МАХ </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>SNICKERS® с Лесным орехом </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>SNICKERS® SUPER</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>SNICKERS® Арахисовый крем </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>14</td><td>только если очень надо</td></tr>
+<tr><td>MILKY WAY® 1+1</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>19</td><td>только если очень надо</td></tr>
+<tr><td>SNICKERS</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>BOUNTY Минис</td><td>Марс</td><td>Конфеты шоколадные кремовые</td><td>808,00 ₽</td><td>36</td><td>берем</td></tr>
+<tr><td>BOUNTY® Trio </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>12</td><td>только если очень надо</td></tr>
+<tr><td>SNICKERS® КРИСПЕР </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>17</td><td>только если очень надо</td></tr>
+<tr><td>BOUNTY</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>18</td><td>только если очень надо</td></tr>
+<tr><td>TWIX® </td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>18</td><td>только если очень надо</td></tr>
+<tr><td>TWIX® соленая карамель</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>18</td><td>только если очень надо</td></tr>
+<tr><td>MARS</td><td>Марс</td><td>Шоколадный батончик</td><td>808,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Мишка на Севере, шоколад с вафлями</td><td>Славянка</td><td>Конфеты шоколадные вафельные</td><td>798,02 ₽</td><td>35</td><td>не ставить!</td></tr>
+<tr><td>Мишка на Севере</td><td>Славянка</td><td>Конфеты шоколадные вафельные</td><td>798,02 ₽</td><td>63</td><td>не ставить!</td></tr>
+<tr><td>Extra milk & Hazelnut</td><td>КДВ</td><td>Шоколадный батончик</td><td>777,78 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Птица счастья</td><td>Победа вкуса</td><td>Конфеты шоколадные вафельные</td><td>772,20 ₽</td><td>77</td><td>берем</td></tr>
+<tr><td>«Россия» - щедрая душа! GOOD MIX</td><td>Nestle</td><td>Шоколадный батончик</td><td>771,21 ₽</td><td>30</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! GOOD MIX</td><td>Nestle</td><td>Шоколадный батончик</td><td>771,21 ₽</td><td>30</td><td>не ставить!</td></tr>
+<tr><td>Шоколад молочный с орехом, 37%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>767,25 ₽</td><td>13</td><td>берем</td></tr>
+<tr><td>Шоколад молочный с орехом и изюмом, 32%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>767,25 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>Печенье OREO</td><td>Мон'дэлис</td><td>Печенье</td><td>764,21 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Печенье OREO</td><td>Мон'дэлис</td><td>Печенье</td><td>764,21 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Печенье OREO</td><td>Мон'дэлис</td><td>Печенье</td><td>764,21 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Ореховичи Фундук Петрович</td><td>КДВ</td><td>Драже</td><td>760,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Фруктовичи Вишня Владимировна</td><td>КДВ</td><td>Драже</td><td>760,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>БОН ПАРИ</td><td>Nestle</td><td>Карамель </td><td>756,80 ₽</td><td>13</td><td>не ставить!</td></tr>
+<tr><td>БОН ПАРИ</td><td>Nestle</td><td>Карамель </td><td>756,80 ₽</td><td>13</td><td>не ставить!</td></tr>
+<tr><td>БОН ПАРИ</td><td>Nestle</td><td>Карамель </td><td>756,80 ₽</td><td>13</td><td>не ставить!</td></tr>
+<tr><td>Ozera, extra milk & extra hazelnut</td><td>КДВ</td><td>Шоколад плитка молочный</td><td>755,56 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Ozera, extra milk & hazelnut</td><td>КДВ</td><td>Шоколад плитка молочный</td><td>755,56 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Мишки в лесу</td><td>Победа вкуса</td><td>Конфеты шоколадные вафельные</td><td>752,40 ₽</td><td>77</td><td>берем</td></tr>
+<tr><td>Фундук Петрович</td><td>КДВ</td><td>Конфеты шоколадные пралине</td><td>750,00 ₽</td><td>167</td><td>только если очень надо</td></tr>
+<tr><td>Вдохновение</td><td>Бабаевский</td><td>Конфеты шоколадные кремовые</td><td>749,09 ₽</td><td>83</td><td>только если очень надо</td></tr>
+<tr><td>Вдохновение</td><td>Бабаевский</td><td>Конфеты шоколадные кремовые</td><td>749,09 ₽</td><td>83</td><td>берем</td></tr>
+<tr><td>MOZZAVR ЖЕВАТЕЛЬНАЯ КОНФЕТА (ВКУС АПЕЛЬСИНА)</td><td>Юнион</td><td>конфеты жевательные</td><td>748,00 ₽</td><td>40</td><td>не ставить!</td></tr>
+<tr><td>MOZZAVR ЖЕВАТЕЛЬНАЯ КОНФЕТА (ВКУС КЛУБНИКИ)</td><td>Юнион</td><td>конфеты жевательные</td><td>748,00 ₽</td><td>40</td><td>не ставить!</td></tr>
+<tr><td>MOZZAVR ЖЕВАТЕЛЬНАЯ КОНФЕТА (ВКУС АРБУЗА)</td><td>Юнион</td><td>конфеты жевательные</td><td>748,00 ₽</td><td>40</td><td>не ставить!</td></tr>
+<tr><td>MOZZAVR ЖЕВАТЕЛЬНАЯ КОНФЕТА (ВКУС ВИШНИ)</td><td>Юнион</td><td>конфеты жевательные</td><td>748,00 ₽</td><td>40</td><td>не ставить!</td></tr>
+<tr><td>MOZZAVR ЖЕВАТЕЛЬНАЯ КОНФЕТА (ВКУС АНАНАСА)</td><td>Юнион</td><td>конфеты жевательные</td><td>748,00 ₽</td><td>40</td><td>не ставить!</td></tr>
+<tr><td>Шоколад пористый сливочный</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>741,23 ₽</td><td>15</td><td>только если очень надо</td></tr>
+<tr><td>Княжеские</td><td>Конти</td><td>Конфеты шоколадные пралине</td><td>736,00 ₽</td><td>63</td><td>не ставить!</td></tr>
+<tr><td>Вдохновение</td><td>Бабаевский</td><td>Конфеты шоколадные пралине</td><td>729,19 ₽</td><td>71</td><td>только если очень надо</td></tr>
+<tr><td>Чарли Кэмбер, со вкусом сыра</td><td>красный октябрь</td><td>Конфеты шоколадные кремовые</td><td>726,40 ₽</td><td>100</td><td>берем</td></tr>
+<tr><td>Мишки в лесу</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>721,67 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Соната</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>719,40 ₽</td><td>77</td><td>только если очень надо</td></tr>
+<tr><td>Трюфель классический</td><td>Славянка</td><td>Трюфель</td><td>714,60 ₽</td><td>75</td><td>берем</td></tr>
+<tr><td>«Россия» - щедрая душа! GOOD MIX DUO*</td><td>Nestle</td><td>Шоколадный батончик</td><td>714,20 ₽</td><td>20</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! GOOD MIX DUO*</td><td>Nestle</td><td>Шоколадный батончик</td><td>714,20 ₽</td><td>20</td><td>не ставить!</td></tr>
+<tr><td>Мишка на севере, с миндальной пастой</td><td>Славянка</td><td>Шоколадный батончик</td><td>710,00 ₽</td><td>25</td><td>только если очень надо</td></tr>
+<tr><td>Лав Стори (love story)</td><td>акконд</td><td>Конфеты шоколадные пралине</td><td>705,99 ₽</td><td>100</td><td>только если очень надо</td></tr>
+<tr><td>Освежающее драже со вкусам черники, лайма, апельсина, винограда, яблока, клубники Три кота 20*30 10г</td><td>Юнион</td><td>Драже</td><td>705,99 ₽</td><td>100</td><td>не ставить!</td></tr>
+<tr><td>Pecan</td><td>КДВ</td><td>фруктово-злаковый батончик</td><td>700,00 ₽</td><td>25</td><td>не ставить!</td></tr>
+<tr><td>Сердечки</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>699,60 ₽</td><td>53</td><td>только если очень надо</td></tr>
+<tr><td>Шоколадные конфеты "Софит" с фундуком и минд. кремом  </td><td>Невский кондитер</td><td>Конфеты шоколадные пралине</td><td>697,50 ₽</td><td>53</td><td>только если очень надо</td></tr>
+<tr><td>Шоколадные конфеты "Софит" с фундуком </td><td>Невский кондитер</td><td>Конфеты шоколадные пралине</td><td>697,50 ₽</td><td>53</td><td>берем</td></tr>
+<tr><td>МЯГКАЯ КАРАМЕЛЬ С НАТУРАЛЬНЫМ СОКОМ АССОРТИ ФРУКТОВЫХ ВКУСОВ + ВОДНАЯ РАСКРАСКА, ТМ ТРИ КОТА</td><td>Юнион</td><td>Жевательная карамель</td><td>696,79 ₽</td><td>100</td><td>не ставить!</td></tr>
+<tr><td>Акконд</td><td>акконд</td><td>Конфеты шоколадные пралине</td><td>696,79 ₽</td><td>100</td><td>берем</td></tr>
+<tr><td>Трюфели</td><td>Комунарка</td><td>Трюфель</td><td>694,28 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>Трюфель сливочный</td><td>Комунарка</td><td>Трюфель</td><td>694,28 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>ПАПА КОЛЯ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>693,72 ₽</td><td>63</td><td>только если очень надо</td></tr>
+<tr><td>МАМА ЖЕНЯ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>693,72 ₽</td><td>63</td><td>только если очень надо</td></tr>
+<tr><td>Соната</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>693,00 ₽</td><td>57</td><td>только если очень надо</td></tr>
+<tr><td>Соната</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>692,22 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Шоколад Сказка со взрывной карамелью</td><td>Сормовская кондитерская</td><td>Шоколад плитка молочный</td><td>692,00 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>Шоколад сливочный, 35%</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>691,38 ₽</td><td>13</td><td>берем</td></tr>
+<tr><td>Шоколад молочный</td><td>Победа вкуса</td><td>Шоколад плитка молочный</td><td>691,38 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>Extra milk</td><td>КДВ</td><td>Шоколадный батончик</td><td>688,89 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>TWIX Минис</td><td>Марс</td><td>Конфеты шоколадные вафельные</td><td>688,12 ₽</td><td>109</td><td>берем</td></tr>
+<tr><td>MILKY WAY Минис</td><td>Марс</td><td>Суфле</td><td>688,12 ₽</td><td>83</td><td>берем</td></tr>
+<tr><td>SNICKERS Минис</td><td>Марс</td><td>конфеты с нугой</td><td>688,12 ₽</td><td>63</td><td>берем</td></tr>
+<tr><td>MARS Минис</td><td>Марс</td><td>конфеты с нугой</td><td>688,12 ₽</td><td>71</td><td>берем</td></tr>
+<tr><td>Батончик чернослив с арахисом</td><td>Кремлина</td><td>натуральные сладости</td><td>688,00 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Батончик финик с арахисом</td><td>Кремлина</td><td>натуральные сладости</td><td>688,00 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Батончик курага с арахисом</td><td>Кремлина</td><td>натуральные сладости</td><td>688,00 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>Батончик инжир с арахисом</td><td>Кремлина</td><td>натуральные сладости</td><td>688,00 ₽</td><td>33</td><td>только если очень надо</td></tr>
+<tr><td>КОЛОБОК</td><td>Сладкая сказка</td><td>Карамель </td><td>683,75 ₽</td><td>100</td><td>не ставить!</td></tr>
+<tr><td>Грильяжные</td><td>РотФронт</td><td>Грильяж</td><td>682,21 ₽</td><td>63</td><td>только если очень надо</td></tr>
+<tr><td>Timi, сливки </td><td>Конти</td><td>Конфеты шоколадные кремовые</td><td>681,76 ₽</td><td>90</td><td>не ставить!</td></tr>
+<tr><td>Timi, сливки -банан</td><td>Конти</td><td>Конфеты шоколадные кремовые</td><td>681,76 ₽</td><td>90</td><td>не ставить!</td></tr>
+<tr><td>МИЛОМУ СОЗДАНИЮ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>681,36 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Аленка, крем-брюле</td><td>красный октябрь</td><td>Шоколадный батончик</td><td>677,25 ₽</td><td>24</td><td>только если очень надо</td></tr>
+<tr><td>Bonjour KONTI, ваниль</td><td>Конти</td><td>Десерт</td><td>676,52 ₽</td><td>34</td><td>не ставить!</td></tr>
+<tr><td>Bonjour KONTI, клубника со сливками</td><td>Конти</td><td>Десерт</td><td>676,52 ₽</td><td>34</td><td>не ставить!</td></tr>
+<tr><td>Bonjour KONTI, классика</td><td>Конти</td><td>Десерт</td><td>676,52 ₽</td><td>34</td><td>не ставить!</td></tr>
+<tr><td>Трюфели</td><td>красный октябрь</td><td>Трюфель</td><td>676,21 ₽</td><td>83</td><td>только если очень надо</td></tr>
+<tr><td>Слеза мужчины</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>675,90 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Коммунарка</td><td>Комунарка</td><td>Шоколад плитка молочный</td><td>674,15 ₽</td><td>5</td><td>не ставить!</td></tr>
+<tr><td>Птица счастья</td><td>Победа вкуса</td><td>Суфле</td><td>673,20 ₽</td><td>67</td><td>берем</td></tr>
+<tr><td>Горьковские</td><td>Сормовская кондитерская</td><td>Конфеты шоколадные пралине</td><td>671,57 ₽</td><td>83</td><td>не ставить!</td></tr>
+<tr><td>УКУС ЖЕНЩИНЫ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>670,30 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Ozera, caramel</td><td>КДВ</td><td>Шоколад плитка белый</td><td>666,67 ₽</td><td>11</td><td>только если очень надо</td></tr>
+<tr><td>Печенье OREO</td><td>Мон'дэлис</td><td>Печенье</td><td>664,47 ₽</td><td>26</td><td>только если очень надо</td></tr>
+<tr><td>Золотая лилия, цельный фундук</td><td>Конти</td><td>Конфеты шоколадные пралине</td><td>661,25 ₽</td><td>115</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! Золотая марка®</td><td>Nestle</td><td>Шоколад плитка молочный</td><td>655,11 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Шоко- кроко</td><td>акконд</td><td>Конфеты шоколадные пралине</td><td>655,11 ₽</td><td>43</td><td>не ставить!</td></tr>
+<tr><td>Шоко- кроко</td><td>акконд</td><td>Конфеты шоколадные пралине</td><td>655,11 ₽</td><td>50</td><td>не ставить!</td></tr>
+<tr><td>Бабаевский батончик с шоколадной начинкой</td><td>Бабаевский</td><td>Шоколадный батончик</td><td>654,20 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Ozera, фундук</td><td>КДВ</td><td>Конфеты шоколадные пралине</td><td>652,00 ₽</td><td>83</td><td>только если очень надо</td></tr>
+<tr><td>Аленка, с орешками</td><td>красный октябрь</td><td>Конфеты шоколадные пралине</td><td>650,57 ₽</td><td>59</td><td>не ставить!</td></tr>
+<tr><td>Выбери меня</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>649,90 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Маленькое чудо кокосовое</td><td>Славянка</td><td>Конфеты шоколадные вафельные</td><td>647,48 ₽</td><td>68</td><td>не ставить!</td></tr>
+<tr><td>Dark Truffle</td><td>КДВ</td><td>Шоколадный батончик</td><td>642,55 ₽</td><td>21</td><td>только если очень надо</td></tr>
+<tr><td>Ozera, миндаль</td><td>КДВ</td><td>Конфеты шоколадные пралине</td><td>638,00 ₽</td><td>91</td><td>только если очень надо</td></tr>
+<tr><td>Alten Burg молочный</td><td>Шоколатье</td><td>Шоколад плитка молочный</td><td>634,90 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Alten Burg кофе-молоко</td><td>Шоколатье</td><td>Шоколад плитка молочный</td><td>634,90 ₽</td><td>10</td><td>только если очень надо</td></tr>
+<tr><td>Аленка, с молочно-злаковой начинкой</td><td>красный октябрь</td><td>Шоколадный батончик</td><td>632,10 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Трюфель</td><td>акконд</td><td>Трюфель</td><td>630,20 ₽</td><td>67</td><td>только если очень надо</td></tr>
+<tr><td>ГЛАМУРНЫЙ ОТДЫХ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>627,07 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>Бабаевские</td><td>Бабаевский</td><td>Конфеты шоколадные пралине</td><td>626,83 ₽</td><td>71</td><td>берем</td></tr>
+<tr><td>Иммунитет</td><td>КДВ</td><td>фруктово-злаковый батончик</td><td>625,00 ₽</td><td>25</td><td>не ставить!</td></tr>
+<tr><td>Бабаевский батончик с помадно-сливочной начинкой</td><td>Бабаевский</td><td>Шоколадный батончик</td><td>622,20 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Манго шоколадное</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>619,16 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Апельсин шоколадный</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>619,16 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Амаре</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>618,89 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Амаре</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>618,89 ₽</td><td>22</td><td>только если очень надо</td></tr>
+<tr><td>Батончик кэжуал Париж</td><td>Кремлина</td><td>натуральные сладости</td><td>614,60 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Ozera, extra milk</td><td>КДВ</td><td>Шоколад плитка молочный</td><td>611,11 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>Степ</td><td>Славянка </td><td>Драже</td><td>611,11 ₽</td><td>22</td><td>берем</td></tr>
+<tr><td>Белочка, с цельным фундуком</td><td>Крупской</td><td>Конфеты шоколадные пралине</td><td>609,61 ₽</td><td>70</td><td>не ставить!</td></tr>
+<tr><td>ДЕВЯТЫЙ КАЛИБР</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>607,48 ₽</td><td>167</td><td>только если очень надо</td></tr>
+<tr><td>Страшно симпатичные</td><td>Победа вкуса</td><td>Жевательный мармелад</td><td>607,20 ₽</td><td>13</td><td>только если очень надо</td></tr>
+<tr><td>Пламя костра</td><td>Крупской</td><td>Конфеты шоколадные пралине</td><td>606,04 ₽</td><td>75</td><td>не ставить!</td></tr>
+<tr><td>РАЗВЕРНИСЬ ДУША</td><td>Атаг</td><td>Конфеты шоколадные кремовые</td><td>605,53 ₽</td><td>125</td><td>только если очень надо</td></tr>
+<tr><td>Халва Рот Фронт , с миндалем</td><td>РотФронт</td><td>Халва</td><td>604,36 ₽</td><td>59</td><td>только если очень надо</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Конфеты шоколадные пралине</td><td>601,88 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Конфеты шоколадные пралине</td><td>601,88 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Конфеты шоколадные пралине</td><td>601,88 ₽</td><td>67</td><td>не ставить!</td></tr>
+<tr><td>Nuts Мегабайт</td><td>Nestle</td><td>Шоколадный батончик</td><td>601,21 ₽</td><td>15</td><td>не ставить!</td></tr>
+<tr><td>Мишки в лесу</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>600,60 ₽</td><td>57</td><td>берем</td></tr>
+<tr><td>Амаре</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>600,60 ₽</td><td>57</td><td>только если очень надо</td></tr>
+<tr><td>Амаре</td><td>Победа вкуса</td><td>Конфеты шоколадные пралине</td><td>600,60 ₽</td><td>57</td><td>только если очень надо</td></tr>
+<tr><td>Батончик козинак из грецкого ореха</td><td>Азовская</td><td>Козинак</td><td>598,17 ₽</td><td>17</td><td>только если очень надо</td></tr>
+<tr><td>Аленка, вареная сгущенка</td><td>красный октябрь</td><td>Шоколадный батончик</td><td>592,59 ₽</td><td>21</td><td>только если очень надо</td></tr>
+<tr><td>Джек, шоколадные истории</td><td>Конти</td><td>Конфеты шоколадные вафельные</td><td>590,35 ₽</td><td>29</td><td>не ставить!</td></tr>
+<tr><td>Амаре</td><td>Победа вкуса</td><td>Шоколадный батончик</td><td>589,67 ₽</td><td>33</td><td>берем</td></tr>
+<tr><td>ЗАВОДНАЯ ТЁЩА</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>588,16 ₽</td><td>63</td><td>только если очень надо</td></tr>
+<tr><td>Тибидох</td><td>Атаг</td><td>Драже</td><td>584,24 ₽</td><td>65</td><td>только если очень надо</td></tr>
+<tr><td>БЕМОЛЬ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>583,69 ₽</td><td>63</td><td>только если очень надо</td></tr>
+<tr><td>Mango</td><td>КДВ</td><td>Шоколадный батончик</td><td>582,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Strawberry</td><td>КДВ</td><td>Шоколадный батончик</td><td>582,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Raspberry</td><td>КДВ</td><td>Шоколадный батончик</td><td>582,00 ₽</td><td>20</td><td>только если очень надо</td></tr>
+<tr><td>Кара-кум</td><td>Сормовская кондитерская</td><td>Конфеты шоколадные пралине</td><td>579,02 ₽</td><td>71</td><td>не ставить!</td></tr>
+<tr><td>Адель</td><td>акконд</td><td>Конфеты шоколадные кремовые</td><td>577,19 ₽</td><td>100</td><td>только если очень надо</td></tr>
+<tr><td>Адель</td><td>акконд</td><td>Конфеты шоколадные кремовые</td><td>577,19 ₽</td><td>100</td><td>берем</td></tr>
+<tr><td>Птица Дивная Премиум</td><td>акконд</td><td>Суфле</td><td>577,19 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Левушка детям</td><td>Славянка</td><td>Конфеты шоколадные пралине</td><td>573,76 ₽</td><td>77</td><td>берем</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Шоколад плитка молочный</td><td>573,16 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Шоколад плитка молочный</td><td>573,16 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Шоколад плитка молочный</td><td>573,16 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! </td><td>Nestle</td><td>Шоколад плитка молочный</td><td>573,16 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>«Россия» - щедрая душа! Сударушка</td><td>Nestle</td><td>Шоколад плитка молочный</td><td>573,16 ₽</td><td>11</td><td>не ставить!</td></tr>
+<tr><td>Может чайку?</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>572,23 ₽</td><td>175</td><td>только если очень надо</td></tr>
+<tr><td>Белочка Бабаевская</td><td>Бабаевский</td><td>Конфеты шоколадные пралине</td><td>572,21 ₽</td><td>71</td><td>берем</td></tr>
+<tr><td>Бабаевские трюфельный крем</td><td>Бабаевский</td><td>Конфеты шоколадные пралине</td><td>572,18 ₽</td><td>83</td><td>берем</td></tr>
+<tr><td>ЖЕНСКИЙ ПРОТЕСТ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>572,00 ₽</td><td>100</td><td>не ставить!</td></tr>
+<tr><td>МУЖСКОЙ ЗАКОН</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>572,00 ₽</td><td>100</td><td>не ставить!</td></tr>
+<tr><td>Жена кочегара Пети</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>571,20 ₽</td><td>57</td><td>только если очень надо</td></tr>
+<tr><td>КОЧЕГАР ПЕТЯ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>571,20 ₽</td><td>71</td><td>только если очень надо</td></tr>
+<tr><td>Мишкино лакомство</td><td>Невский кондитер</td><td>Конфеты шоколадные пралине</td><td>571,20 ₽</td><td>56</td><td>берем</td></tr>
+<tr><td>ПОПРОБУЙ И АХНЕШЬ</td><td>Атаг</td><td>Конфеты шоколадные пралине</td><td>571,00 ₽</td><td>63</td><td>не ставить!</td></tr>
+<tr><td>Чернослив с грецким орехом</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>567,80 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Курага с грецким орехом</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>567,80 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Чернослив с миндалем</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>567,80 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Банан шоколадный</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>567,80 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>Груша шоколадная</td><td>Кремлина</td><td>Конфеты натуральные фруктовые</td><td>567,80 ₽</td><td>29</td><td>только если очень надо</td></tr>
+<tr><td>YOTA вафля и молочная глазурь</td><td>КДВ</td><td>Драже</td><td>562,50 ₽</td><td>25</td><td>только если очень надо</td></tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-grid gap-2 d-flex justify-content-center" >
+                                <a class="btn btn-primary" href="add_confection.html" role="button">Добавить</a>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Редактировать
+                                </button>
+                              </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script> -->
+<!--         <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+        
+    </body>
+</html>

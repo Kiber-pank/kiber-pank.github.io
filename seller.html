@@ -317,7 +317,30 @@
 
 <!-- БЛОК 6: Форма обратной связи (Яндекс.Форма) -->
 <section id="form" class="form-block">
-  <script src="https://forms.yandex.ru/_static/embed.js"></script><iframe src="https://forms.yandex.ru/u/69aac14202848f4fa510da21?iframe=1" frameborder="0" name="ya-form-69aac14202848f4fa510da21" width="650"></iframe>
+  <div class="container" style="padding: 0;">
+    <h2 style="margin-bottom: 10px;">Хватит рисковать оборотами. Начните контролировать документы за 2 минуты.</h2>
+    <p style="font-size: 1.4rem; margin-bottom: 30px;">Оставьте контакты — мы покажем дашборд, добавим ваши первые 10 деклараций бесплатно и настроим уведомления.</p>
+
+    <!-- заглушка под Яндекс.Форму (iframe) — сюда вставишь код формы -->
+    <div class="yandex-form-placeholder">
+      <p style="color:#f5b342; font-size: 1.5rem;">[iframe Яндекс.Формы]</p>
+      <p>Поля: Имя, ИНН/ссылка, Telegram/телефон, Email (необяз.)</p>
+      <p>👇 кнопка ниже будет внутри формы, но дублируем</p>
+    </div>
+
+    <script src="https://forms.yandex.ru/_static/embed.js"></script><iframe src="https://forms.yandex.ru/u/69aac14202848f4fa510da21?iframe=1" frameborder="0" name="ya-form-69aac14202848f4fa510da21" width="650"></iframe>
+
+    <!-- имитация полей для наглядности (можно удалить после подключения реальной формы) -->
+    <div style="background: #1f262e; border-radius: 30px; padding: 30px; margin: 20px 0;">
+      <input type="text" placeholder="Ваше имя *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="text" placeholder="ИНН / ссылка на магазин *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="text" placeholder="Telegram / телефон *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="email" placeholder="Email (необязательно)" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <label style="display:flex; align-items:center; gap:10px; margin:20px 0;"><input type="checkbox" checked> Согласен на обработку данных</label>
+      <a href="#" class="btn btn-small">Спать спокойно</a>
+    </div>
+    <!-- конец имитации -->
+  </div>
 </section>
 
 <!-- БЛОК 7: FAQ -->

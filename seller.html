@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>ComplyMap — страховка продаж на маркетплейсах</title>
+  <!-- Предполагаем, что шрифты системные, чтобы не тормозить -->
+  <style>
+    /* —— СБРОС И БАЗА —— */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #0b0c0e;
+      color: #f0f2f5;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* —— КИСЛОТНЫЕ АКЦЕНТЫ —— */
+    .accent-red {
+      color: #ff3b3b;
+    }
+    .accent-gold {
+      color: #f5b342;
+    }
+    .bg-alert {
+      background: #ff3b3b10;
+      border-left: 4px solid #ff3b3b;
+    }
+    .btn {
+      display: inline-block;
+      background: #f5b342;
+      color: #0b0c0e;
+      font-weight: 800;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 16px 36px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #a06e1f, 0 10px 30px rgba(245, 180, 66, 0.3);
+      margin: 20px 0 10px;
+    }
+    .btn:hover {
+      transform: translateY(2px);
+      box-shadow: 0 6px 0 #a06e1f, 0 15px 30px rgba(245, 180, 66, 0.5);
+    }
+    .btn-small {
+      font-size: 1rem;
+      padding: 12px 24px;
+      box-shadow: 0 4px 0 #a06e1f;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    /* —— СЕТКА / КАРТОЧКИ —— */
+    .grid-3, .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background: #15181c;
+      padding: 30px 20px;
+      border-radius: 28px;
+      border: 1px solid #2f353b;
+      box-shadow: 0 20px 30px -10px #00000080;
+      transition: 0.2s;
+    }
+    .stat-card:hover {
+      border-color: #f5b342;
+      transform: scale(1.02);
+    }
+
+    /* —— БЛОКИ —— */
+    .hero {
+      padding: 60px 0 40px;
+      background: radial-gradient(circle at 70% 10%, #2a1f0a, #0b0c0e 70%);
+    }
+
+    .hero-usp {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+      font-weight: 600;
+    }
+    .hero-usp span {
+      background: #1e2126;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+    }
+
+    .pain-block {
+      background: #0f1114;
+      padding: 60px 0;
+      border-top: 1px solid #ff3b3b30;
+      border-bottom: 1px solid #ff3b3b30;
+    }
+
+    .solution-block {
+      padding: 70px 0;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin: 40px 0;
+    }
+    .step-item {
+      flex: 1 1 200px;
+      background: #15181c;
+      border-radius: 40px;
+      padding: 30px 20px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      border-bottom: 4px solid #f5b342;
+    }
+
+    /* —— ТЕСТИМОНИАЛ —— */
+    .testimonial {
+      background: #1b1f24;
+      border-radius: 40px;
+      padding: 40px;
+      margin: 40px 0;
+      border: 1px solid #f5b34240;
+      font-style: normal;
+    }
+
+    /* —— ФОРМА —— */
+    .form-block {
+      background: #15181c;
+      border-radius: 50px;
+      padding: 50px 30px;
+      border: 1px solid #f5b342;
+      margin: 60px 0;
+    }
+    .yandex-form-placeholder {
+      background: #22272e;
+      min-height: 320px;
+      border-radius: 32px;
+      padding: 30px;
+      font-family: monospace;
+      border: 2px dashed #f5b34260;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #aaa;
+    }
+
+    /* —— FAQ —— */
+    .faq-item {
+      margin: 30px 0;
+      border-bottom: 1px solid #2f353b;
+      padding-bottom: 20px;
+    }
+    .faq-question {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #f5b342;
+    }
+
+    /* —— ПОДВАЛ —— */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid #2f353b;
+      font-size: 0.9rem;
+      color: #999;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 30px;
+    }
+
+    hr {
+      border-color: #2f353b;
+      margin: 30px 0;
+    }
+
+    .small-note {
+      font-size: 0.9rem;
+      color: #9a9fa7;
+    }
+
+    a {
+      color: #f5b342;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- БЛОК 1: Первый экран (удар в лоб) -->
+<section class="hero">
+  <div class="container">
+    <!-- Визуал: картинка по промпту #1 — телефон с уведомлением -->
+    <div style="margin-bottom: 30px; max-width: 400px; margin-left: 0;">
+      <img src="https://via.placeholder.com/400x300/1e1e1e/f5b342?text=%F0%9F%9A%A8+%D0%94%D0%B5%D0%BA%D0%BB%D0%B0%D1%80%D0%B0%D1%86%D0%B8%D1%8F+%D0%B0%D0%BD%D0%BD%D1%83%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B0" 
+           alt="push-уведомление об аннулировании декларации" style="box-shadow: 0 0 30px #f5b34220;">
+    </div>
+    <!-- (здесь реально вставить сгенерированное изображение) -->
+    
+    <h1>ComplyMap — <span class="accent-gold">страховка</span> ваших продаж на маркетплейсах</h1>
+    <p style="font-size: 1.6rem; font-weight: 300; margin: 20px 0 10px;">Мониторинг деклараций 24/7. Ни одной блокировки карточки из-за "слетевших" документов.</p>
+    
+    <a href="#form" class="btn">Проверить свои декларации бесплатно</a>
+    <div class="small-note" style="margin-top: 5px;">⚡ Не ждите, пока конкуренты настучат. Проверка займет 2 минуты.</div>
+    
+    <div class="hero-usp">
+      <span>💀 Не спи, карточку заблокируют.</span>
+      <span>⏰ 24/7 сканируем реестр ФСА.</span>
+      <span>🔔 Telegram-уведомление об угрозе.</span>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 2: Боль (растереть солью) -->
+<section class="pain-block">
+  <div class="container">
+    <h2>Ваш товар стоит на складе, но вы <span class="accent-red">не можете его продавать</span>? Знакомо.</h2>
+    <div style="font-size: 1.3rem; max-width: 800px;">
+      <p>✖ Маркетплейс прислал уведомление: "Документ недействителен". Карточка — в бан. Товар — в стоп.</p>
+      <p>✖ Вы узнали об этом только когда упали продажи в ноль.</p>
+      <p>✖ Конкуренты мониторят ваши декларации и подставляют, как только находят слабое место.</p>
+      <p>✖ Проверять вручную 100+ позиций — это адский труд, на который нет времени.</p>
+    </div>
+    <p style="font-size: 2rem; font-weight: 800; margin-top: 40px;">Это не ваша вина. Это косяк системы ФСА и тупой рутины. Но теряете деньги — <span class="accent-red">вы</span>.</p>
+  </div>
+</section>
+
+<!-- БЛОК 3: Решение (Наш кулак) -->
+<section class="solution-block">
+  <div class="container">
+    <h2>ComplyMap делает одно дело, но идеально — следит за вашими декларациями 24/7.</h2>
+    <div class="steps">
+      <div class="step-item">1. Загружаете артикулы / ИНН</div>
+      <div class="step-item">2. Сканируем ФСА каждые 24 часа</div>
+      <div class="step-item">3. Пуш в Telegram при угрозе</div>
+    </div>
+    <p style="font-size: 1.8rem; font-weight: 700; text-align: center; margin-top: 20px;">🗝️ Мы не даем сгореть вашим документам незаметно.</p>
+  </div>
+</section>
+
+<!-- БЛОК 4: Цифры и факты (Доказательства) -->
+<section style="background: #0f1114; padding: 60px 0;">
+  <div class="container">
+    <h2>Цифры, которые экономят ваш бюджет</h2>
+    <div class="grid-4">
+      <div class="stat-card"><span style="font-size: 3rem; font-weight: 900;">до 7</span> дней экономии в месяц на ручной проверке</div>
+      <div class="stat-card"><span style="font-size: 3rem; font-weight: 900;">0</span> блокировок по документам с ComplyMap*</div>
+      <div class="stat-card"><span style="font-size: 3rem; font-weight: 900;">100%</span> актуальных данных из реестра ФСА</div>
+      <div class="stat-card"><span style="font-size: 3rem; font-weight: 900;">1</span> минута — загрузить все товары</div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 5: Социальное доказательство -->
+<section style="padding: 60px 0;">
+  <div class="container">
+    <h2>Уже защищают свой оборот</h2>
+    <div class="testimonial">
+      <p style="font-size: 1.3rem;">«Раньше раз в полгода проверял вручную, а тут Ozon прислал претензию — оказывается декларация неделю как аннулирована. Теперь с ComplyMap сплю спокойно».</p>
+      <p style="margin-top: 20px;">— Игорь, продавец автозапчастей на WB и Ozon</p>
+    </div>
+    <!-- Картинка по промпту #3 — довольный селлер (заглушка) -->
+    <img src="https://via.placeholder.com/800x300/1e1e1e/cccccc?text=%F0%9F%91%94+%D0%A1%D1%87%D0%B0%D1%81%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9+%D1%81%D0%B5%D0%BB%D0%BB%D0%B5%D1%80+%D1%81+ComplyMap" alt="селлер с уведомлением" style="border-radius: 40px; margin-top: 20px;">
+  </div>
+</section>
+
+<!-- БЛОК 6: Форма обратной связи (Яндекс.Форма) -->
+<section id="form" class="form-block">
+  <div class="container" style="padding: 0;">
+    <h2 style="margin-bottom: 10px;">Хватит рисковать оборотами. Начните контролировать документы за 2 минуты.</h2>
+    <p style="font-size: 1.4rem; margin-bottom: 30px;">Оставьте контакты — мы покажем дашборд, добавим ваши первые 10 деклараций бесплатно и настроим уведомления.</p>
+
+    <!-- заглушка под Яндекс.Форму (iframe) — сюда вставишь код формы -->
+    <div class="yandex-form-placeholder">
+      <p style="color:#f5b342; font-size: 1.5rem;">[iframe Яндекс.Формы]</p>
+      <p>Поля: Имя, ИНН/ссылка, Telegram/телефон, Email (необяз.)</p>
+      <p>👇 кнопка ниже будет внутри формы, но дублируем</p>
+    </div>
+
+    <!-- имитация полей для наглядности (можно удалить после подключения реальной формы) -->
+    <div style="background: #1f262e; border-radius: 30px; padding: 30px; margin: 20px 0;">
+      <input type="text" placeholder="Ваше имя *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="text" placeholder="ИНН / ссылка на магазин *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="text" placeholder="Telegram / телефон *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <input type="email" placeholder="Email (необязательно)" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
+      <label style="display:flex; align-items:center; gap:10px; margin:20px 0;"><input type="checkbox" checked> Согласен на обработку данных</label>
+      <a href="#" class="btn btn-small">Спать спокойно</a>
+    </div>
+    <!-- конец имитации -->
+  </div>
+</section>
+
+<!-- БЛОК 7: FAQ -->
+<section style="padding: 50px 0;">
+  <div class="container">
+    <h2>Вопрос — ответ</h2>
+    <div class="faq-item">
+      <div class="faq-question">В: Это точно работает? / Откуда данные?</div>
+      <div class="faq-answer">О: ComplyMap берет данные напрямую из открытого реестра ФСА. Это те же данные, которые видят маркетплейсы и проверяющие органы. Мы просто делаем это быстрее и автоматически.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">В: А если у меня 1000 товаров, это надолго?</div>
+      <div class="faq-answer">О: Загружаете файлик Excel — система сама находит все декларации по вашему ИНН за 2 минуты.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">В: Сколько стоит?</div>
+      <div class="faq-answer">О: Сейчас мы открываем бесплатный доступ первым 100 селлерам. Оставьте заявку, чтобы попасть в список.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">В: А на Ozon работает так же как на WB?</div>
+      <div class="faq-answer">О: Да, мы проверяем документы в госреестре, а не на площадке. Поэтому разницы нет — защищены все ваши товары на всех площадках сразу.</div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 8: Подвал -->
+<footer class="footer container">
+  <div>ComplyMap © 2025</div>
+  <div><a href="#">Политика конфиденциальности</a> | <a href="#">Обработка персональных данных</a></div>
+  <div style="width:100%; margin-top:20px; font-size:0.8rem; color:#666;">Сервис не является официальным представителем ФСА и предоставляет информацию на основе открытых данных.</div>
+</footer>
+
+<!-- дополнительная конверсионная кнопка снизу -->
+<div style="text-align: center; margin: 30px 0 60px;">
+  <a href="#form" class="btn" style="background: #ff3b3b; box-shadow:0 8px 0 #921; margin:0;">Не жди блокировки</a>
+</div>
+
+</body>
+</html>

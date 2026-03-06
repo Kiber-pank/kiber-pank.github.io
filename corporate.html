@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplyMap — автоматизация проверки документов контрагентов</title>
+    <!-- Подключение шрифтов для делового стиля -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Типографика */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+
+        h2 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+
+        .section-subhead {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 720px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        /* Секции */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid #e9eef2;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Кнопки */
+        .btn-primary {
+            background-color: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-primary:hover {
+            background-color: #143048;
+        }
+
+        /* Хедер (первый экран) */
+        .hero {
+            padding: 60px 0 80px;
+            background-color: #ffffff;
+        }
+
+        .hero-grid {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-visual {
+            flex: 1;
+            background-color: #f2f5f9;
+            border-radius: 12px;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #2c3e50;
+            border: 1px solid #dee4ec;
+            min-height: 280px;
+        }
+
+        .hero-stats {
+            display: flex;
+            margin-top: 40px;
+            gap: 32px;
+        }
+
+        .hero-stat-item {
+            font-size: 0.95rem;
+            color: #2c3e50;
+            font-weight: 500;
+            border-left: 3px solid #1e3a5f;
+            padding-left: 16px;
+        }
+
+        /* Преимущества под кнопкой */
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 32px 0 0;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .badge-list span {
+            display: flex;
+            align-items: center;
+        }
+
+        .badge-list span::before {
+            content: "—";
+            margin-right: 8px;
+            color: #1e3a5f;
+            font-weight: 600;
+        }
+
+        /* Блок ценность (две колонки) */
+        .two-columns {
+            display: flex;
+            gap: 60px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        .problem-block {
+            background-color: #f9fafc;
+            padding: 32px;
+            border-radius: 8px;
+            border-left: 4px solid #9b2c2c;
+        }
+
+        .solution-block {
+            background-color: #f9fafc;
+            padding: 32px;
+            border-radius: 8px;
+            border-left: 4px solid #1e3a5f;
+        }
+
+        /* Как это работает (steps) */
+        .steps-grid {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .step-item {
+            flex: 1;
+            background: #f9fafc;
+            padding: 28px 24px;
+            border-radius: 8px;
+            border-top: 3px solid #1e3a5f;
+        }
+
+        .step-num {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #a0b8cc;
+            margin-bottom: 16px;
+        }
+
+        /* Функциональные возможности (сетка 3x2) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin: 40px 0 20px;
+        }
+
+        .feature-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 24px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        /* Роли */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .role-card {
+            background: #f9fafc;
+            padding: 30px 25px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .role-card h3 {
+            margin-bottom: 16px;
+        }
+
+        /* Форма (яндекс-стайл, строгая) */
+        .form-section {
+            background-color: #f2f5f9;
+            border-radius: 12px;
+            padding: 48px;
+            margin-top: 20px;
+        }
+
+        .yandex-form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #dce3eb;
+        }
+
+        .yandex-form-container iframe {
+            width: 100%;
+            height: 560px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: #5f6c80;
+            margin-top: 16px;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 900px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 24px 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .faq-answer {
+            color: #334155;
+        }
+
+        /* Подвал */
+        .footer {
+            padding: 40px 0 30px;
+            background-color: #f8fafd;
+            border-top: 1px solid #dce3eb;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .footer-links a {
+            color: #1e3a5f;
+            text-decoration: none;
+            margin-left: 28px;
+        }
+
+        .footer-links a:first-child {
+            margin-left: 0;
+        }
+
+        .footer-copyright {
+            font-weight: 400;
+        }
+
+        .disclaimer {
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: #6f7d95;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 20px;
+        }
+
+        /* ссылки */
+        a {
+            color: #1e3a5f;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* для отзывчивости */
+        @media (max-width: 1024px) {
+            h1 { font-size: 2.5rem; }
+            .hero-grid { flex-direction: column; }
+            .two-columns { flex-direction: column; }
+            .steps-grid { flex-direction: column; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .roles-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; align-items: flex-start; }
+            .footer-links a { display: block; margin: 10px 0; }
+            .hero-stats { flex-direction: column; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Первый экран (Hero) -->
+<section class="hero" style="border-bottom: none; padding-bottom: 40px;">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>ComplyMap — автоматизация проверки деклараций контрагентов</h1>
+                <p style="font-size: 1.35rem; color: #334155; margin-bottom: 2rem; max-width: 600px;">Интеграция с реестром ФСА для корпоративного due diligence. Управляйте рисками, исключите ручной труд и получайте актуальные данные о статусах документов поставщиков в реальном времени.</p>
+                <a href="#form" class="btn-primary">Запросить коммерческое предложение</a>
+                <div class="badge-list">
+                    <span>Прямой доступ к данным ФСА (Росаккредитация)</span>
+                    <span>Подходит для 115-ФЗ и внутреннего комплаенса</span>
+                    <span>Готовое API для интеграции с 1С и CRM</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <!-- Строгая визуализация: схема интеграции -->
+                <div style="text-align: center; width: 100%;">
+                    <div style="display: flex; justify-content: center; gap: 8px; font-weight: 500; color: #1e3a5f; align-items: center; flex-wrap: wrap;">
+                        <span style="background: #e9edf2; padding: 6px 14px; border-radius: 30px;">CRM</span>
+                        <span style="font-size: 1.5rem;">→</span>
+                        <span style="background: #1e3a5f; color: white; padding: 6px 14px; border-radius: 30px;">ComplyMap</span>
+                        <span style="font-size: 1.5rem;">→</span>
+                        <span style="background: #e9edf2; padding: 6px 14px; border-radius: 30px;">ФСА</span>
+                        <span style="font-size: 1.5rem;">→</span>
+                        <span style="background: #e9edf2; padding: 6px 14px; border-radius: 30px;">Отчёт</span>
+                    </div>
+                    <div style="margin-top: 30px; background: #ffffff; border: 1px solid #d0dbe8; border-radius: 8px; padding: 18px;">
+                        <div style="display: flex; justify-content: space-between; color: #1e3a5f; font-weight: 500; border-bottom: 1px solid #dee4ec; padding-bottom: 10px; margin-bottom: 10px;">
+                            <span>Контрагент</span>
+                            <span>ИНН</span>
+                            <span>Статус декларации</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; color: #2d3f59; padding: 5px 0;"><span>ООО “ТехСнаб”</span><span>7701123456</span><span style="color: #2b6e3b;">Действует</span></div>
+                        <div style="display: flex; justify-content: space-between; color: #2d3f59; padding: 5px 0;"><span>АО “СтройКомплект”</span><span>7802345678</span><span style="color: #b33e3e;">Аннулирована</span></div>
+                    </div>
+                    <p style="color: #55657b; font-size: 0.85rem; margin-top: 20px;">Дашборд ComplyMap • актуальные статусы</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Второй блок: Ценность для бизнеса -->
+<section>
+    <div class="container">
+        <h2>Снижение рисков и оптимизация затрат на проверку контрагентов</h2>
+        <div class="two-columns">
+            <div class="col problem-block">
+                <h3 style="color: #9b2c2c;">Проблема</h3>
+                <p style="font-size: 1.05rem;">Еженедельно ваши сотрудники вручную проверяют десятки деклараций поставщиков. Данные не систематизированы, статусы документов меняются, а вы узнаете об этом постфактум. Это создает зону неопределенности и репутационные риски.</p>
+            </div>
+            <div class="col solution-block">
+                <h3 style="color: #1e3a5f;">Решение ComplyMap</h3>
+                <p style="font-size: 1.05rem;">Автоматизирует проверку документов в фоновом режиме, сохраняет историю изменений и предоставляет единый реестр всех проверенных контрагентов с актуальными статусами. Вы получаете прозрачность и контроль без увеличения штата.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Третий блок: Как это работает (процессы) -->
+<section>
+    <div class="container">
+        <h2>Встраивается в ваши бизнес-процессы за 1 день</h2>
+        <div class="steps-grid">
+            <div class="step-item">
+                <div class="step-num">01</div>
+                <h3>Загрузка данных</h3>
+                <p>Импорт списка ИНН контрагентов или номеров деклараций из вашей CRM/Excel.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">02</div>
+                <h3>Автоматическая проверка</h3>
+                <p>Запросы в реестр ФСА, формирование структурированного отчета по каждому контрагенту.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">03</div>
+                <h3>Мониторинг и алерты</h3>
+                <p>При изменении статуса документа (аннулирование, приостановка) — уведомления ответственных. Все изменения логируются.</p>
+            </div>
+        </div>
+        <p style="margin-top: 30px; color: #1e3a5f; font-weight: 500;">✓ Доступно API для полной автоматизации</p>
+    </div>
+</section>
+
+<!-- Четвертый блок: Функциональные возможности -->
+<section>
+    <div class="container">
+        <h2>Инструменты для комплексной проверки</h2>
+        <div class="features-grid">
+            <div class="feature-item"><span class="feature-title">Пакетная проверка по ИНН</span> Загрузите список из 1000 ИНН — получите все оформленные декларации и статусы.</div>
+            <div class="feature-item"><span class="feature-title">История изменений</span> Фиксируем, когда и как менялся статус документа. Важно для комплаенса.</div>
+            <div class="feature-item"><span class="feature-title">API для интеграции</span> Подключайте данные к 1С, SAP, Битрикс24.</div>
+            <div class="feature-item"><span class="feature-title">Ролевая модель доступа</span> Разграничение прав для закупок, юристов и службы безопасности.</div>
+            <div class="feature-item"><span class="feature-title">Массовая выгрузка отчетов</span> Все данные в Excel или PDF для внутренней отчетности.</div>
+            <div class="feature-item"><span class="feature-title">Мониторинг изменений</span> Система следит за статусами и присылает уведомления.</div>
+        </div>
+    </div>
+</section>
+
+<!-- Пятый блок: Для кого решение (роли) -->
+<section>
+    <div class="container">
+        <h2>Решение для ключевых подразделений компании</h2>
+        <div class="roles-grid">
+            <div class="role-card"><h3>Отдел закупок</h3> <p>Быстрая проверка новых поставщиков. Контроль актуальности документов по действующим контрактам. Исключение простоев из-за "слетевших" сертификатов.</p></div>
+            <div class="role-card"><h3>Служба безопасности (ОБЭП)</h3> <p>Инструмент для экспресс-проверки контрагентов. Снижение рисков взаимодействия с фирмами-однодневками и недобросовестными поставщиками.</p></div>
+            <div class="role-card"><h3>Юридический отдел</h3> <p>Подтвержденная база для due diligence. Документальное основание для отказа от сотрудничества в случае аннулирования документов.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Шестой блок: Форма обратной связи (Яндекс.Форма) -->
+<section id="form">
+    <div class="container">
+        <div class="form-section">
+            <h2 style="margin-bottom: 0.5rem;">Обсудим интеграцию в ваши бизнес-процессы?</h2>
+            <p style="color: #2d3f59; margin-bottom: 2rem;">Оставьте контакты — мы пришлем презентацию с кейсами использования и предложим индивидуальные условия для вашей компании.</p>
+            <div class="yandex-form-container">
+                <!-- Встроенная Яндекс.Форма (iframe). Для реального использования заменить src на актуальную форму. Поля соответствуют заданию. -->
+                <iframe src="https://forms.yandex.ru/surveys/10033226.8f6c4d95a8f7304a22bbf7d5e4ceb7cec6fa1a1f/?iframe=1" frameborder="0" name="ya-form-10033226" width="100%" height="560px"></iframe>
+            </div>
+            <div class="form-note">* Нажимая «Получить коммерческое предложение», вы соглашаетесь на обработку персональных данных.</div>
+        </div>
+    </div>
+</section>
+
+<!-- Седьмой блок: FAQ -->
+<section>
+    <div class="container">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-list">
+            <div class="faq-item"><div class="faq-question">Откуда вы берете данные и какова их юридическая значимость?</div><div class="faq-answer">ComplyMap использует официальные данные Федеральной службы по аккредитации (ФСА России), опубликованные в открытом доступе. Информация идентична той, что предоставляется на официальном сайте.</div></div>
+            <div class="faq-item"><div class="faq-question">Можно ли интегрировать ComplyMap с нашей CRM?</div><div class="faq-answer">Да, мы предоставляем REST API. Наши специалисты помогут с интеграцией под ключ.</div></div>
+            <div class="faq-item"><div class="faq-question">Как часто обновляются данные?</div><div class="faq-answer">Мы синхронизируемся с реестром ФСА ежедневно. В рамках мониторинга вы получаете информацию об изменениях в режиме реального времени (при следующем цикле проверки).</div></div>
+            <div class="faq-item"><div class="faq-question">Предоставляете ли вы закрывающие документы для юридических лиц?</div><div class="faq-answer">Да, работаем по договору, выставляем счета и акты. Работаем с НДС и без.</div></div>
+            <div class="faq-item"><div class="faq-question">Есть ли ограничения по количеству запросов?</div><div class="faq-answer">Для корпоративных клиентов мы предлагаем индивидуальные тарифы без жестких лимитов. Обсудим в рамках КП.</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Восьмой блок: Подвал -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-copyright">ComplyMap © 2025 — Система управления рисками при проверке контрагентов</div>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Пользовательское соглашение</a>
+                <a href="mailto:b2b@complymap.ru">b2b@complymap.ru</a>
+            </div>
+        </div>
+        <div class="disclaimer">
+            Информация предоставляется на основе открытых данных ФСА. Сервис не является государственным органом.
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplyMap — аналитика реестра ФСА без границ</title>
+    <!-- Подключение шрифтов для дружелюбного, но современного стиля -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome для иконок (просто для демо-стиля) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafc;
+            color: #1A1F36;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* Типографика и цвета */
+        h1 {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #0B1C3A;
+        }
+        h2 {
+            font-size: 38px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #0B1C3A;
+        }
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .subhead {
+            font-size: 20px;
+            color: #4F5A73;
+            max-width: 700px;
+            margin: 20px 0 30px;
+        }
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid #e6e8f0;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: #2B3A67;
+            color: white;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 16px -6px rgba(43, 58, 103, 0.2);
+        }
+        .btn:hover {
+            background-color: #1F2B4F;
+        }
+        .btn-light {
+            background-color: white;
+            color: #2B3A67;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        /* Сетки */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        /* Таблица сравнения */
+        .comparison-table {
+            background: white;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            border: 1px solid #f0f2f7;
+        }
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f7;
+        }
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        .feature-name {
+            flex: 2;
+            font-weight: 500;
+            color: #1A2B4C;
+        }
+        .feature-fsa, .feature-cm {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+        .feature-fsa i, .feature-cm i {
+            font-size: 20px;
+        }
+        .fa-check-circle { color: #1E8E6E; }
+        .fa-times-circle { color: #B91C48; }
+        /* Карточки примеров/кейсов */
+        .case-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.06);
+            border: 1px solid #f2f4fa;
+            transition: all 0.2s;
+        }
+        .case-card:hover {
+            box-shadow: 0 20px 30px -10px rgba(43,58,103,0.12);
+            transform: translateY(-4px);
+        }
+        .case-icon {
+            background: #E1E7FC;
+            width: 56px;
+            height: 56px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: #2B3A67;
+            font-size: 24px;
+        }
+        .case-card p {
+            color: #3E4A63;
+            margin-top: 12px;
+        }
+        /* Блок с фильтрами (пример UI) */
+        .filter-demo {
+            background: #0B1C3A;
+            color: white;
+            border-radius: 32px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        .filter-tag {
+            background: rgba(255,255,255,0.1);
+            border-radius: 60px;
+            padding: 8px 16px;
+            font-size: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 10px 10px 0;
+        }
+        .filter-tag i {
+            color: #B7C9FF;
+            font-size: 14px;
+        }
+        .query-preview {
+            background: #1F2F4F;
+            border-radius: 24px;
+            padding: 24px;
+            margin: 25px 0;
+            font-family: monospace;
+        }
+        /* Форма */
+        .form-section {
+            background: #FFFFFF;
+            border-radius: 40px;
+            padding: 60px;
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.2);
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid #D6DCEB;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+        }
+        textarea {
+            min-height: 120px;
+        }
+        .checkbox {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        /* FAQ */
+        .faq-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e4f0;
+        }
+        .faq-question {
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .faq-answer {
+            padding-top: 12px;
+            color: #3A4A65;
+        }
+        footer {
+            padding: 40px 0;
+            color: #4F5A73;
+            font-size: 14px;
+        }
+        hr {
+            border: 1px solid #e6e8f0;
+            margin: 40px 0;
+        }
+        /* Адаптация */
+        @media (max-width: 900px) {
+            h1 { font-size: 42px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Первый экран -->
+<div class="section" style="padding-top: 40px;">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <span style="font-weight: 700; font-size: 24px; color: #0B1C3A;">ComplyMap</span>
+            <span style="color: #2B3A67;">Глубокая аналитика реестра ФСА</span>
+        </div>
+        <div class="grid-2">
+            <div>
+                <h1>Аналитика реестра ФСА <br>без границ</h1>
+                <p class="subhead">Любые выборки, любые фильтры, экспорт в любом виде. Данные деклараций и сертификатов — под ваши бизнес-задачи.</p>
+                <a href="#form" class="btn">Исследовать возможности</a>
+                <p style="margin-top: 20px; color: #5D6A85;"><i class="fas fa-infinity" style="color: #2B3A67;"></i> Мы не ограничиваем — мы расширяем возможности.</p>
+            </div>
+            <div style="background: #E9EDF5; border-radius: 40px; padding: 30px; text-align: center; min-height: 320px; display: flex; align-items: center; justify-content: center;">
+                <!-- Визуал: схема "Chaos -> ComplyMap -> Order" -->
+                <div style="width: 100%;">
+                    <div style="display: flex; align-items: center; justify-content: space-around; gap: 10px; flex-wrap: wrap;">
+                        <div style="background: #FFFFFF; border-radius: 30px; padding: 15px;"><i class="fas fa-circle" style="color: #B91C48;"></i> <i class="fas fa-circle" style="color: #f0b400;"></i> <i class="fas fa-circle" style="color: #1E8E6E;"></i> <br><span style="font-size: 12px;">Сырые данные ФСА</span></div>
+                        <div style="font-size: 30px;"><i class="fas fa-arrow-right"></i></div>
+                        <div style="background: #2B3A67; border-radius: 60px; padding: 20px; color: white; font-weight: bold;">ComplyMap<br><span style="font-size: 12px; opacity: 0.8;">воронка/фильтр</span></div>
+                        <div style="font-size: 30px;"><i class="fas fa-arrow-right"></i></div>
+                        <div style="background: #FFFFFF; border-radius: 16px; padding: 15px; box-shadow: 0 8px 16px;"><i class="fas fa-chart-bar"></i> <i class="fas fa-table"></i> <i class="fas fa-chart-line"></i><br><span style="font-size: 12px;">Отчеты, графики</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Второй блок: Разрыв шаблона (ФСА vs ComplyMap) -->
+<div class="section">
+    <div class="container">
+        <h2 style="text-align: center;">Официальный реестр ФСА показывает данные.<br> ComplyMap позволяет с ними работать.</h2>
+        <div class="comparison-table">
+            <div class="comparison-row">
+                <div class="feature-name">Возможность</div>
+                <div class="feature-fsa"><b>ФСА</b></div>
+                <div class="feature-cm"><b>ComplyMap</b></div>
+            </div>
+            <div class="comparison-row"><div class="feature-name">Поиск по номеру</div><div class="feature-fsa"><i class="fas fa-check-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Поиск по нескольким ИНН одновременно</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Фильтр по точному наименованию товара</div><div class="feature-fsa"><i class="fas fa-times-circle"></i> (только вхождение)</div><div class="feature-cm"><i class="fas fa-check-circle"></i> (точное, исключения)</div></div>
+            <div class="comparison-row"><div class="feature-name">Фильтр по коду ТН ВЭД (полный/частичный)</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Фильтр по дате (диапазон) и статусу</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Комбинация любых фильтров (И/ИЛИ)</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Аналитика: динамика, топ заявителей</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Экспорт в Excel/CSV/Google Sheets</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+            <div class="comparison-row"><div class="feature-name">Сохранение выборок и автообновление</div><div class="feature-fsa"><i class="fas fa-times-circle"></i></div><div class="feature-cm"><i class="fas fa-check-circle"></i></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- Третий блок: Кейсы (Кому и зачем) -->
+<div class="section">
+    <div class="container">
+        <h2 style="text-align: center;">Кому и зачем нужна такая гибкость?</h2>
+        <div class="grid-4">
+            <div class="case-card">
+                <div class="case-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Анализ конкурентов</h3>
+                <p>«Кто производит гидроизоляцию в РФ? Кто наращивает объемы?» — получаете динамику и рейтинг производителей.</p>
+            </div>
+            <div class="case-card">
+                <div class="case-icon"><i class="fas fa-truck"></i></div>
+                <h3>Поиск поставщиков</h3>
+                <p>Ищу производителей игрушек с действующей декларацией и стажем работы. Выгрузка с контактами.</p>
+            </div>
+            <div class="case-card">
+                <div class="case-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Инвесторам</h3>
+                <p>Оценка рынка светодиодов: сколько деклараций в месяц? Кто лидеры? Готовые графики и дашборды.</p>
+            </div>
+            <div class="case-card">
+                <div class="case-icon"><i class="fas fa-gavel"></i></div>
+                <h3>Тендерный отдел</h3>
+                <p>Найти всех производителей масок с действующими сертификатами для рассылки КП — за минуты.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Четвертый блок: Настоящая гибкость (фильтры) -->
+<div class="section">
+    <div class="container">
+        <h2>Сотни комбинаций фильтров — под любую задачу</h2>
+        <div class="filter-demo">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;">
+                <span class="filter-tag"><i class="fas fa-tag"></i> ТН ВЭД: 9401 (мебель) </span>
+                <span class="filter-tag"><i class="fas fa-calendar"></i> Дата рег: 01.01.2024 - 31.12.2024 </span>
+                <span class="filter-tag"><i class="fas fa-check-circle"></i> Статус: Действует </span>
+                <span class="filter-tag"><i class="fas fa-map-marker-alt"></i> Регион заявителя: Москва, МО </span>
+                <span class="filter-tag"><i class="fas fa-search"></i> Товар содержит: "кресло", не содержит "офисное"</span>
+            </div>
+            <div class="query-preview">
+                <i class="fas fa-database" style="color: #A5B9FF;"></i> Результат: 242 декларации, 48 изготовителей
+            </div>
+            <p style="color: #ccd9ff;">Мгновенная выборка под критерии. Сохраняйте, выгружайте, стройте графики, настраивайте мониторинг новых записей.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Пятый блок: Аналитика и визуализация -->
+<div class="section">
+    <div class="container">
+        <div class="grid-2">
+            <div>
+                <h2>Цифры, которые говорят</h2>
+                <p style="font-size: 18px; color: #2E3D5F;">Данные бесполезны без анализа. ComplyMap автоматически строит графики, диаграммы и сводные по вашим выборкам.</p>
+                <ul style="margin-top: 24px; list-style: none;">
+                    <li><i class="fas fa-chart-line" style="color: #2B3A67;"></i> Динамика регистраций по месяцам</li>
+                    <li><i class="fas fa-chart-bar" style="color: #2B3A67;"></i> Топ-10 заявителей в категории</li>
+                    <li><i class="fas fa-globe" style="color: #2B3A67;"></i> Распределение по регионам</li>
+                    <li><i class="fas fa-fire" style="color: #2B3A67;"></i> Тепловая карта активности по ТН ВЭД</li>
+                </ul>
+            </div>
+            <div style="background: #FFFFFF; border-radius: 36px; padding: 30px; box-shadow: 0 12px 32px rgba(0,0,0,0.05);">
+                <i class="fas fa-chart-simple" style="font-size: 120px; color: #CCD6F0; display: block; text-align: center;"></i>
+                <p style="text-align: center; color: #7C8AA6;">Пример дашборда: динамика и топ</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Шестой блок: API и кастомные решения -->
+<div class="section">
+    <div class="container">
+        <div class="grid-2" style="background: #F0F4FF; border-radius: 48px; padding: 50px;">
+            <div>
+                <h2>Нужны данные в вашей системе? Или нестандартный отчет?</h2>
+                <p style="font-size: 18px;">API: подключайтесь к нашему API и получайте выборки напрямую в CRM, BI или Power BI.</p>
+                <p>Кастомная разработка: специфический отчет под вас — напишем за 2-3 дня.</p>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-code" style="font-size: 100px; color: #2B3A67; opacity: 0.7;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Седьмой блок: Форма (Яндекс.Форма стилизована) -->
+<div class="section" id="form">
+    <div class="container">
+        <div class="form-section">
+            <h2 style="margin-bottom: 8px;">Расскажите о вашей задаче — мы покажем решение</h2>
+            <p style="font-size: 18px; color: #4F5A73; margin-bottom: 40px;">Аналитика реестра ФСА может быть полезнее, чем вы думаете. Оставьте контакты — пришлем пример отчета под вашу задачу.</p>
+            
+            <form action="#" method="post">
+                <div class="grid-2" style="gap: 20px;">
+                    <div class="form-group"><input type="text" placeholder="Имя *" required></div>
+                    <div class="form-group"><input type="text" placeholder="Компания / Сфера деятельности"></div>
+                </div>
+                <div class="grid-2" style="gap: 20px;">
+                    <div class="form-group"><input type="email" placeholder="Email *" required></div>
+                    <div class="form-group"><input type="tel" placeholder="Телефон (необязательно)"></div>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Какая задача стоит? / Какие данные ищете? *" required></textarea>
+                </div>
+                <div class="checkbox form-group">
+                    <input type="checkbox" id="agree" style="width: 20px; height: 20px;">
+                    <label for="agree">Согласен на обработку данных (ссылка на политику)</label>
+                </div>
+                <button type="submit" class="btn btn-light" style="background: #2B3A67; color: white;">Получить пример отчета</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Восьмой блок: FAQ -->
+<div class="section">
+    <div class="container">
+        <h2 style="text-align: center;">FAQ: ответы на продвинутые вопросы</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-question">Откуда берутся данные и как часто обновляются? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Данные загружаются напрямую из официального реестра ФСА (Росаккредитация). Обновление происходит ежедневно, поэтому вы всегда работаете с актуальной информацией.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Можно ли получить доступ к "сырым" данным за все время? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Да, мы храним историю изменений. Вы можете получить выборку за любой период с момента начала работы сервиса.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Насколько глубоко можно фильтровать по товарам? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Мы индексируем полный текст описания товаров из деклараций. Можно искать по точному совпадению, вхождению, исключению слов, а также комбинировать с кодами ТН ВЭД.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Я аналитик, но не программист. Смогу разобраться? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Интерфейс построен так, чтобы любой пользователь Excel мог строить сложные выборки без единой строчки кода. Проведем короткую демонстрацию при необходимости.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Девятый блок: Подвал -->
+<footer>
+    <div class="container">
+        <hr>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div><b>ComplyMap</b> © 2025 — Глубокая аналитика реестра ФСА</div>
+            <div style="display: flex; gap: 30px;">
+                <a href="#" style="text-decoration: none; color: #1F2B4F;">Политика конфиденциальности</a>
+                <a href="#" style="text-decoration: none; color: #1F2B4F;">Пользовательское соглашение</a>
+                <span><i class="fas fa-envelope"></i> data@complymap.ru</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Небольшой скрипт для аккордеона FAQ (чисто для виду, можно убрать) -->
+<script>
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.nextElementSibling;
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+</script>
+
+</body>
+</html>

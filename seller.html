@@ -237,7 +237,7 @@
 <section class="hero">
   <div class="container">
     <!-- Визуал: картинка по промпту #1 — телефон с уведомлением -->
-    <div style="margin-bottom: 30px; max-width: 400px; margin-left: 0;">
+    <div style="margin-bottom: 30px; max-width: 100%; margin-left: 0;">
       <img src="./imges/gbot2le6kt4pach6ujgqzzzxgelfstqh.jpg" 
            alt="push-уведомление об аннулировании декларации" style="box-shadow: 0 0 30px #f5b34220;">
     </div>
@@ -248,6 +248,8 @@
     
     <a href="#form" class="btn">Проверить свои декларации бесплатно</a>
     <div class="small-note" style="margin-top: 5px;">⚡ Не ждите, пока конкуренты настучат. Проверка займет 2 минуты.</div>
+    
+
     
     <div class="hero-usp">
       <span>💀 Не спи, карточку заблокируют.</span>
@@ -267,7 +269,7 @@
       <p>✖ Конкуренты мониторят ваши декларации и подставляют, как только находят слабое место.</p>
       <p>✖ Проверять вручную 100+ позиций — это адский труд, на который нет времени.</p>
     </div>
-    <p style="font-size: 2rem; font-weight: 800; margin-top: 40px;">Это не ваша вина. Это косяк системы ФСА и тупой рутины. Но теряете деньги — <span class="accent-red">вы</span>.</p>
+    <p style="font-size: 2rem; font-weight: 800; margin-top: 40px;">Это не ваша вина. Но теряете деньги — <span class="accent-red">вы</span>.</p>
   </div>
 </section>
 
@@ -283,7 +285,7 @@
     <p style="font-size: 1.8rem; font-weight: 700; text-align: center; margin-top: 20px;">🗝️ Мы не даем сгореть вашим документам незаметно.</p>
     <img src="./imges/big-209255-1.jpg" 
      alt="интерфейс ComplyMap: документы в порядке" 
-     style="margin-top: 30px; border-radius: 30px; box-shadow: 0 0 30px #00cc6620;">
+     style="margin-top: 30px; max-width: 100%; border-radius: 30px; box-shadow: 0 0 30px #00cc6620;">
   </div>
 </section>
 
@@ -315,28 +317,7 @@
 
 <!-- БЛОК 6: Форма обратной связи (Яндекс.Форма) -->
 <section id="form" class="form-block">
-  <div class="container" style="padding: 0;">
-    <h2 style="margin-bottom: 10px;">Хватит рисковать оборотами. Начните контролировать документы за 2 минуты.</h2>
-    <p style="font-size: 1.4rem; margin-bottom: 30px;">Оставьте контакты — мы покажем дашборд, добавим ваши первые 10 деклараций бесплатно и настроим уведомления.</p>
-
-    <!-- заглушка под Яндекс.Форму (iframe) — сюда вставишь код формы -->
-    <div class="yandex-form-placeholder">
-      <p style="color:#f5b342; font-size: 1.5rem;">[iframe Яндекс.Формы]</p>
-      <p>Поля: Имя, ИНН/ссылка, Telegram/телефон, Email (необяз.)</p>
-      <p>👇 кнопка ниже будет внутри формы, но дублируем</p>
-    </div>
-
-    <!-- имитация полей для наглядности (можно удалить после подключения реальной формы) -->
-    <div style="background: #1f262e; border-radius: 30px; padding: 30px; margin: 20px 0;">
-      <input type="text" placeholder="Ваше имя *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
-      <input type="text" placeholder="ИНН / ссылка на магазин *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
-      <input type="text" placeholder="Telegram / телефон *" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
-      <input type="email" placeholder="Email (необязательно)" style="width:100%; padding:15px; margin-bottom:15px; background:#0f1217; border:1px solid #3a434e; border-radius:40px; color:white;">
-      <label style="display:flex; align-items:center; gap:10px; margin:20px 0;"><input type="checkbox" checked> Согласен на обработку данных</label>
-      <a href="#" class="btn btn-small">Спать спокойно</a>
-    </div>
-    <!-- конец имитации -->
-  </div>
+  <script src="https://forms.yandex.ru/_static/embed.js"></script><iframe src="https://forms.yandex.ru/u/69aac14202848f4fa510da21?iframe=1" frameborder="0" name="ya-form-69aac14202848f4fa510da21" width="650"></iframe>
 </section>
 
 <!-- БЛОК 7: FAQ -->

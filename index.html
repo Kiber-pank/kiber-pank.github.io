@@ -1,315 +1,1609 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ComplyMap API — Данные реестров сертификации</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>API реестров сертификации РФ • CertAPI</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-        /* Hero Section */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
+  <style>
+    :root {
+      --primary: #0066FF;
+      --primary-dark: #0052CC;
+      --primary-light: #4D94FF;
+      --secondary: #0F172A;
+      --accent: #06B6D4;
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F8FAFC;
+      --bg-tertiary: #F1F5F9;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --border: #E2E8F0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.95;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        .features h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 60px;
-            color: #2d3748;
-        }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
+    .display-title {
+      font-size: clamp(2rem, 4.5vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
 
-        .feature-card {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
 
-        .feature-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      max-width: 640px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
 
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            fill: #667eea;
-        }
+    .gradient-bg {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F0F7FF 50%, #F8FAFC 100%);
+    }
 
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .feature-card p {
-            color: #718096;
-            font-size: 1rem;
-        }
+    /* Cards */
+    .card-modern {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Categories Section */
-        .categories {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
+    .card-modern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
 
-        .categories h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 60px;
-            color: #2d3748;
-        }
+    .card-modern:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-light);
+    }
 
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+    .card-modern:hover::before {
+      transform: scaleX(1);
+    }
 
-        .category-card {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: block;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-        }
+    /* Buttons */
+    .btn-primary-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.875rem 2rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 14px rgba(0, 102, 255, 0.25);
+      white-space: nowrap;
+    }
 
-        .category-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-primary-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 102, 255, 0.35);
+      color: white;
+    }
 
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        }
+    .btn-outline-modern {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 0.875rem 2rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
 
-        .category-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
-            fill: #667eea;
-        }
+    .btn-outline-modern:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      background: rgba(0, 102, 255, 0.02);
+    }
 
-        .category-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
+    /* Icon Boxes */
+    .icon-box {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
 
-        .category-card p {
-            color: #718096;
-            margin-bottom: 20px;
-        }
+    .card-modern:hover .icon-box {
+      transform: scale(1.1) rotate(5deg);
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+    }
 
-        .category-link {
-            color: #667eea;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+    /* Fixed Hero Section */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+    }
 
-        .category-link::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
+    .hero-bg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
 
-        .category-card:hover .category-link::after {
-            transform: translateX(5px);
-        }
+    /* Fixed Carousel - No jumping */
+    .hero-carousel {
+      position: relative;
+    }
 
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            background: #2d3748;
-            color: white;
-            text-align: center;
-        }
+    .carousel-slide {
+      display: none;
+      animation: fadeInSlide 0.4s ease-out;
+    }
 
-        footer a {
-            color: #a0aec0;
-            text-decoration: none;
-            margin: 0 15px;
-        }
+    .carousel-slide.active {
+      display: block;
+    }
 
-        footer a:hover {
-            color: white;
-        }
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .carousel-indicators-custom {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .carousel-indicator {
+      width: 48px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-indicator.active {
+      background: var(--primary);
+      width: 64px;
+    }
+
+    .carousel-indicator:hover {
+      background: var(--primary-light);
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--secondary);
+      color: #E2E8F0;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      box-shadow: var(--shadow-xl);
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block .keyword {
+      color: #C084FC;
+    }
+
+    .code-block .string {
+      color: #6EE7B7;
+    }
+
+    .code-block .prop {
+      color: #FDA4AF;
+    }
+
+    .code-block .number {
+      color: #FDBA74;
+    }
+
+    .code-block .comment {
+      color: #94A3B8;
+    }
+
+    /* Accordion */
+    .accordion-item {
+      background: var(--bg-primary);
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius) !important;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .accordion-button {
+      background: transparent;
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 1.25rem 1.5rem;
+      border: none;
+      box-shadow: none !important;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: rgba(0, 102, 255, 0.02);
+      color: var(--primary);
+    }
+
+    .accordion-button::after {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230066FF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .accordion-body {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Pricing Cards */
+    .pricing-card {
+      background: var(--bg-primary);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pricing-card.featured::before {
+      content: 'Популярный';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 0.35rem 1.25rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-light);
+    }
+
+    .price-amount {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--secondary);
+      line-height: 1;
+    }
+
+    .price-period {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.875rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .feature-list li i {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    /* Badge */
+    .badge-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(0, 102, 255, 0.15);
+    }
+
+    /* Form */
+    .form-control-modern {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.875rem 1.25rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      background: white;
+    }
+
+    .form-control-modern:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.08);
+      outline: none;
+    }
+
+    /* Navigation */
+    .navbar-modern {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 0;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .navbar-modern.scrolled {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-link {
+      color: var(--text-secondary) !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary) !important;
+    }
+
+    /* Decorative Blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      top: -200px;
+      right: -100px;
+    }
+
+    .blob-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      bottom: -100px;
+      left: -100px;
+    }
+
+    /* Scroll Animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 {
+      transition-delay: 0.1s;
+    }
+
+    .stagger-2 {
+      transition-delay: 0.2s;
+    }
+
+    .stagger-3 {
+      transition-delay: 0.3s;
+    }
+
+    .stagger-4 {
+      transition-delay: 0.4s;
+    }
+
+    /* Section spacing */
+    section {
+      padding: 5rem 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 4rem 0 2rem;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    footer h6 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 991px) {
+      .hero-section {
+        padding: 3.5rem 0 3rem;
+      }
+
+      .code-block {
+        margin-top: 2rem;
+      }
+
+      .navbar-nav {
+        padding: 1rem 0;
+        gap: 0.5rem;
+      }
+
+      .btn-sm {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 767px) {
+      section {
+        padding: 3rem 0;
+      }
+
+      .hero-section {
+        padding: 2.5rem 0 2rem;
+      }
+
+      .display-title {
+        font-size: 1.75rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .card-modern {
+        padding: 1.5rem;
+      }
+
+      .pricing-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .pricing-card.featured::before {
+        font-size: 0.8rem;
+        padding: 0.25rem 1rem;
+      }
+
+      .code-block {
+        font-size: 0.75rem;
+        padding: 1.25rem;
+      }
+
+      .btn-primary-gradient,
+      .btn-outline-modern {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .blob-1 {
+        width: 250px;
+        height: 250px;
+        top: -150px;
+        right: -80px;
+      }
+
+      .blob-2 {
+        width: 200px;
+        height: 200px;
+        bottom: -80px;
+        left: -80px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .carousel-indicators-custom {
+        justify-content: center;
+      }
+
+      .carousel-indicator {
+        width: 36px;
+      }
+
+      .carousel-indicator.active {
+        width: 48px;
+      }
+
+      .price-amount {
+        font-size: 2.25rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>ComplyMap API</h1>
-            <p>Нормализованные данные реестров сертификации и деклараций РФ через JSON API. Обновление данных ≤ 2 часов. Соответствие 152-ФЗ.</p>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2>Преимущества</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    <h3>Стабильный API</h3>
-                    <p>Удобные endpoint для поиска по ИНН, номеру декларации, ТН ВЭД. Курсорная пагинация для больших объёмов.</p>
-                </div>
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                    </svg>
-                    <h3>Нормализованные данные</h3>
-                    <p>Получаете в ответе только то, что нужно.</p>
-                </div>
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                    </svg>
-                    <h3>Актуальность ≤ 2 часов</h3>
-                    <p>Синхронизация с официальными реестрами не реже 1 раза в 2 часа. Данные всегда свежие.</p>
-                </div>
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                    </svg>
-                    <h3>Соответствие 152-ФЗ</h3>
-                    <p>Агрегируем только данные из открытых реестров (Росаккредитация). Юридическая чистота.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-modern sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#"
+        style="font-weight: 800; font-size: 1.5rem; color: var(--secondary); text-decoration: none;">
+        <i data-lucide="shield-check" style="color: var(--primary); width: 32px; height: 32px;"></i>
+        ComplyMap
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#features">Возможности</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#how-it-works">Как работает</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#pricing">Тарифы</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#faq">FAQ</a>
+          </li>
+          <li class="nav-item mt-2 mt-lg-0">
+            <a href="#" class="btn btn-outline-modern btn-sm w-100 w-lg-auto">Документация</a>
+          </li>
+          <li class="nav-item mt-2 mt-lg-0">
+            <a href="#cta-form" class="btn btn-primary-gradient btn-sm w-100 w-lg-auto">Тестовый доступ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h2>Для кого</h2>
-            <div class="categories-grid">
-                <a href="/aggregator.html" class="category-card">
-                    <svg class="category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
-                    </svg>
-                    <h3>Для Агрегаторов</h3>
-                    <p>B2B-справочники, тендерные площадки, сервисы проверки контрагентов. Масштабная проверка поставщиков без риска блокировок.</p>
-                    <span class="category-link">Подробнее</span>
+  <!-- Hero Section with Fixed Carousel -->
+  <section class="hero-section gradient-bg position-relative">
+    <div class="hero-bg-pattern"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="container position-relative" style="z-index: 1;">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="hero-carousel">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active" id="slide-1">
+              <span class="badge-custom">
+                <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
+                Проверка контрагентов
+              </span>
+              <h1 class="display-title">
+                Исключите риски работы с <span class="gradient-text">недобросовестными поставщиками</span>
+              </h1>
+              <p class="lead mb-4" style="color: var(--text-secondary); font-size: clamp(1rem, 1.5vw, 1.25rem);">
+                Автоматическая проверка сертификатов соответствия за 300 мс. Интеграция в ваши бизнес-процессы без
+                изменения текущих систем.
+              </p>
+              <div class="d-flex flex-wrap gap-3 mb-4">
+                <a href="#cta-form" class="btn btn-primary-gradient">
+                  <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
+                  Начать бесплатно
                 </a>
-                <!-- Сюда будут добавлены другие категории -->
+                <a href="#" class="btn btn-outline-modern">
+                  <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
+                  Документация
+                </a>
+              </div>
+              <div class="row g-3 pt-2">
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">300 мс ответ</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">SLA 99.9%</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">152-ФЗ</span>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 ComplyMap API</p>
-            <p>
-                <a href="mailto:info@complymap.ru">info@complymap.ru</a>
-                <a href="https://t.me/complymap">Telegram</a>
+            <!-- Slide 2 -->
+            <div class="carousel-slide" id="slide-2">
+              <span class="badge-custom">
+                <i data-lucide="puzzle" style="width: 16px; height: 16px;"></i>
+                Для интеграторов
+              </span>
+              <h1 class="display-title">
+                Добавьте ценность вашему продукту <span class="gradient-text">без дополнительных затрат</span>
+              </h1>
+              <p class="lead mb-4" style="color: var(--text-secondary); font-size: clamp(1rem, 1.5vw, 1.25rem);">
+                Быстрое подключение к 1С, Битрикс24, amoCRM. White label решение с партнёрским вознаграждением до 20%.
+              </p>
+              <div class="d-flex flex-wrap gap-3 mb-4">
+                <a href="#cta-form" class="btn btn-primary-gradient">
+                  <i data-lucide="code" style="width: 20px; height: 20px;"></i>
+                  Стать партнёром
+                </a>
+                <a href="#" class="btn btn-outline-modern">
+                  <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
+                  API Reference
+                </a>
+              </div>
+              <div class="row g-3 pt-2">
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">REST API</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">Webhooks</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">20% комиссия</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide" id="slide-3">
+              <span class="badge-custom">
+                <i data-lucide="database" style="width: 16px; height: 16px;"></i>
+                Официальные данные
+              </span>
+              <h1 class="display-title">
+                Единый доступ ко всем реестрам <span class="gradient-text">сертификации РФ</span>
+              </h1>
+              <p class="lead mb-4" style="color: var(--text-secondary); font-size: clamp(1rem, 1.5vw, 1.25rem);">
+                Быстрая синхронизация с ФСА и Росаккредитацией. Актуальные данные о сертификатах, декларациях и статусах
+                в
+                реальном времени.
+              </p>
+              <div class="d-flex flex-wrap gap-3 mb-4">
+                <a href="#cta-form" class="btn btn-primary-gradient">
+                  <i data-lucide="rocket" style="width: 20px; height: 20px;"></i>
+                  Получить API ключ
+                </a>
+                <a href="#" class="btn btn-outline-modern">
+                  <i data-lucide="terminal" style="width: 20px; height: 20px;"></i>
+                  Swagger
+                </a>
+              </div>
+              <div class="row g-3 pt-2">
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">ФСА</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">Росаккредитация</span>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="check-circle"
+                      style="color: var(--accent); width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span class="fw-semibold" style="font-size: 0.875rem;">Real-time</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Indicators -->
+          <div class="carousel-indicators-custom">
+            <button class="carousel-indicator active" data-slide="1" aria-label="Слайд 1"></button>
+            <button class="carousel-indicator" data-slide="2" aria-label="Слайд 2"></button>
+            <button class="carousel-indicator" data-slide="3" aria-label="Слайд 3"></button>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="code-block fade-in-up">
+            <div class="d-flex align-items-center gap-2 mb-3" style="opacity: 0.5; font-size: 0.8rem;">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #EF4444;"></div>
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #F59E0B;"></div>
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></div>
+              <span class="ms-2">terminal — bash</span>
+            </div>
+            <div><span class="keyword">curl</span> -X GET \</div>
+            <div>&nbsp;&nbsp;<span class="string">"https://api.certapi.ru/v1/check?inn=7707083893"</span> \</div>
+            <div>&nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $API_KEY"</span></div>
+            <div class="mt-3"><span class="comment">// Response 200 OK</span></div>
+            <div>{</div>
+            <div>&nbsp;&nbsp;<span class="prop">"status"</span>: <span class="string">"success"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="prop">"data"</span>: {</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"inn"</span>: <span class="string">"7707083893"</span>,
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"certificates"</span>: [</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"number"</span>: <span
+                class="string">"РОСС RU.0001.11АА00"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"status"</span>: <span
+                class="string">"active"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"valid_until"</span>: <span
+                class="string">"2026-12-31"</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+            <div>&nbsp;&nbsp;}</div>
+            <div>}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <div class="text-center mb-5 fade-in-up">
+        <h2 class="section-title">Решаем задачи бизнеса</h2>
+        <p class="section-subtitle mx-auto">
+          Интегрируйте проверку сертификатов в любые бизнес-процессы и снижайте риски на всех этапах работы с
+          контрагентами
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-1">
+          <div class="card-modern">
+            <div class="icon-box">
+              <i data-lucide="shopping-cart" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Маркетплейсы</h4>
+            <p class="text-secondary mb-0" style="font-size: 0.95rem;">
+              Автоматическая модерация продавцов. Проверка сертификатов на товары перед размещением в каталоге.
             </p>
+          </div>
         </div>
-    </footer>
 
-    <script>
-        // Анимация появления блоков при скролле
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-2">
+          <div class="card-modern">
+            <div class="icon-box">
+              <i data-lucide="building-2" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">ERP и CRM</h4>
+            <p class="text-secondary mb-0" style="font-size: 0.95rem;">
+              Валидация контрагентов в карточке клиента. Актуальные данные о сертификатах всегда под рукой.
+            </p>
+          </div>
+        </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-3">
+          <div class="card-modern">
+            <div class="icon-box">
+              <i data-lucide="warehouse" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Склад и закупки</h4>
+            <p class="text-secondary mb-0" style="font-size: 0.95rem;">
+              Мгновенная сверка при приёмке товара. Снижение рисков контрафакта и штрафов от контролирующих органов.
+            </p>
+          </div>
+        </div>
 
-        // Наблюдаем за всеми карточками
-        document.querySelectorAll('.feature-card, .category-card').forEach(card => {
-            observer.observe(card);
-        });
+        <!--         <div class="col-md-6 col-lg-3 fade-in-up stagger-4">
+          <div class="card-modern">
+            <div class="icon-box">
+              <i data-lucide="plug" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Интеграторы</h4>
+            <p class="text-secondary mb-0" style="font-size: 0.95rem;">
+              Готовые коннекторы для 1С, Битрикс24, amoCRM. Быстрое внедрение и партнёрское вознаграждение.
+            </p>
+          </div>
+        </div> -->
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-4">
+          <div class="card-modern">
+            <div class="icon-box">
+              <i data-lucide="plug" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Интеграторы</h4>
+            <p class="text-secondary mb-0" style="font-size: 0.95rem;">
+              Подключение к 1С, Битрикс24, amoCRM. Быстрое внедрение и партнёрское вознаграждение.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Плавный скролл для якорных ссылок (если появятся)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+  <!-- How It Works -->
+  <section id="how-it-works" style="background: var(--bg-primary);">
+    <div class="container">
+      <div class="text-center mb-5 fade-in-up">
+        <h2 class="section-title">Простая интеграция</h2>
+        <p class="section-subtitle mx-auto">
+          Три шага до автоматической проверки сертификатов в вашей системе
+        </p>
+      </div>
+
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5">
+          <div class="d-flex gap-4 mb-4 fade-in-up stagger-1">
+            <div
+              style="flex-shrink: 0; width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">
+              01</div>
+            <div>
+              <h4 class="fw-bold mb-2">Отправьте запрос</h4>
+              <p class="text-secondary mb-0">ИНН, ОГРН или номер сертификата через REST API. Поддержка batch-запросов
+                для массовой проверки.</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-4 mb-4 fade-in-up stagger-2">
+            <div
+              style="flex-shrink: 0; width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">
+              02</div>
+            <div>
+              <h4 class="fw-bold mb-2">Получите данные</h4>
+              <p class="text-secondary mb-0">Статус сертификата, срок действия, орган по сертификации, продукция в
+                формате JSON.</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-4 fade-in-up stagger-3">
+            <div
+              style="flex-shrink: 0; width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">
+              03</div>
+            <div>
+              <h4 class="fw-bold mb-2">Интегрируйте</h4>
+              <p class="text-secondary mb-0">Webhook-уведомления, готовые модули или прямой вызов API в вашем коде.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7 fade-in-up">
+          <div class="code-block">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span style="opacity: 0.7; font-size: 0.8rem;">Пример запроса</span>
+              <a href="#" style="color: var(--accent); font-size: 0.8rem; text-decoration: none;">
+                <i data-lucide="external-link" style="width: 14px; height: 14px; display: inline;"></i>
+                Swagger Docs
+              </a>
+            </div>
+            <div><span class="keyword">curl</span> -X GET \</div>
+            <div>&nbsp;&nbsp;<span class="string">"https://api.certapi.ru/v1/check?inn=7707083893"</span> \</div>
+            <div>&nbsp;&nbsp;-H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \</div>
+            <div>&nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span></div>
+            <div class="mt-3"><span class="comment">// Response</span></div>
+            <div>{</div>
+            <div>&nbsp;&nbsp;<span class="prop">"request_id"</span>: <span class="string">"req_123456"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="prop">"certificates"</span>: [</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"number"</span>: <span class="string">"РОСС
+                RU.0001.11АА00"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"status"</span>: <span
+                class="string">"active"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"issued_date"</span>: <span
+                class="string">"2024-01-15"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"valid_until"</span>: <span
+                class="string">"2026-12-31"</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">"body"</span>: <span class="string">"ООО Орган
+                по сертификации"</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+            <div>&nbsp;&nbsp;],</div>
+            <div>&nbsp;&nbsp;<span class="prop">"total"</span>: <span class="number">1</span></div>
+            <div>}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Details -->
+  <section>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6 fade-in-up">
+          <div class="card-modern h-100">
+            <div class="icon-box">
+              <i data-lucide="server" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Технические характеристики</h4>
+            <ul class="feature-list">
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Латентность ответа < 300 мс</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>SLA 99.9% гарантированной доступности</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>REST API с поддержкой JSON</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Webhook-уведомления об изменениях</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Batch-запросы до 100 записей</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-6 fade-in-up stagger-2">
+          <div class="card-modern h-100">
+            <div class="icon-box">
+              <i data-lucide="lock" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Безопасность и соответствие</h4>
+            <ul class="feature-list">
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Полное соответствие 152-ФЗ</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Данные хранятся на территории РФ</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>HTTPS/TLS 1.3 шифрование</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>API Key аутентификация</span>
+              </li>
+              <li>
+                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                <span>Официальные источники: ФСА, Росаккредитация</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership -->
+  <section style="background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 fade-in-up">
+          <span class="badge-custom">
+            <i data-lucide="handshake" style="width: 16px; height: 16px;"></i>
+            Партнёрская программа
+          </span>
+          <h2 class="section-title mb-4">
+            Зарабатывайте на интеграциях <span class="gradient-text">без дополнительных вложений</span>
+          </h2>
+          <p class="lead mb-4" style="color: var(--text-secondary);">
+            Создавайте готовые модули для популярных платформ и получайте до 20% от выручки с каждого платящего клиента.
+          </p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center gap-3">
+                <div class="icon-box" style="width: 48px; height: 48px; margin: 0;">
+                  <i data-lucide="package" style="width: 24px; height: 24px;"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">Готовый модуль</div>
+                  <div class="text-secondary small">1С, Битрикс, amoCRM</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center gap-3">
+                <div class="icon-box" style="width: 48px; height: 48px; margin: 0;">
+                  <i data-lucide="percent" style="width: 24px; height: 24px;"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">До 20% комиссии</div>
+                  <div class="text-secondary small">Постоянный доход</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#cta-form" class="btn btn-primary-gradient">
+            <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+            Стать партнёром
+          </a>
+        </div>
+
+        <div class="col-lg-6 fade-in-up stagger-2">
+          <div class="card-modern" style="background: var(--secondary); color: white; border: none;">
+            <h5 class="fw-bold mb-4" style="color: white;">Что вы получаете:</h5>
+            <ul class="feature-list">
+              <li style="color: rgba(255,255,255,0.8);">
+                <i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i>
+                <span>Доступ к песочнице и полной документации</span>
+              </li>
+              <li style="color: rgba(255,255,255,0.8);">
+                <i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i>
+                <span>Техническая поддержка</span>
+              </li>
+              <!--               <li style="color: rgba(255,255,255,0.8);">
+                <i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i>
+                <span>Размещение в каталоге интеграций</span>
+              </li>
+              <li style="color: rgba(255,255,255,0.8);">
+                <i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i>
+                <span>Маркетинговая поддержка</span>
+              </li> -->
+              <li style="color: rgba(255,255,255,0.8);">
+                <i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i>
+                <span>Прозрачная отчётность в личном кабинете</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="text-center mb-5 fade-in-up">
+        <h2 class="section-title">Прозрачные тарифы</h2>
+        <p class="section-subtitle mx-auto">
+          Начните бесплатно и масштабируйтесь по мере роста бизнеса
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-1">
+          <div class="pricing-card">
+            <h5 class="fw-bold mb-2">Тестовый</h5>
+            <p class="text-secondary small mb-4">Для знакомства с API</p>
+            <div class="mb-4">
+              <span class="price-amount">0 ₽</span>
+            </div>
+            <ul class="feature-list mb-4 flex-grow-1">
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>50 запросов/месяц</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Базовая поддержка</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Доступ к песочнице</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Документация</span></li>
+            </ul>
+            <a href="#cta-form" class="btn btn-outline-modern w-100 mt-auto">Начать</a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-2">
+          <div class="pricing-card">
+            <h5 class="fw-bold mb-2">Старт</h5>
+            <p class="text-secondary small mb-4">Для небольших проектов</p>
+            <div class="mb-4">
+              <span class="price-amount">7 000</span>
+              <span class="price-period">₽/мес</span>
+            </div>
+            <ul class="feature-list mb-4 flex-grow-1">
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>5 000 запросов/мес</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Email-поддержка</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>История запросов</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>API ключи</span></li>
+            </ul>
+            <a href="#cta-form" class="btn btn-primary-gradient w-100 mt-auto">Выбрать</a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-3">
+          <div class="pricing-card featured">
+            <h5 class="fw-bold mb-2">Профессиональный</h5>
+            <p class="text-secondary small mb-4">Для растущего бизнеса</p>
+            <div class="mb-4">
+              <span class="price-amount">12 000</span>
+              <span class="price-period">₽/мес</span>
+            </div>
+            <ul class="feature-list mb-4 flex-grow-1">
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>25 000 запросов/мес</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Приоритетная поддержка</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Webhook-уведомления</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Batch-запросы</span></li>
+            </ul>
+            <a href="#cta-form" class="btn btn-primary-gradient w-100 mt-auto">Попробовать</a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 fade-in-up stagger-4">
+          <div class="pricing-card">
+            <h5 class="fw-bold mb-2">Enterprise</h5>
+            <p class="text-secondary small mb-4">Для крупных компаний</p>
+            <div class="mb-4">
+              <span class="price-amount" style="font-size: 2rem;">Индив.</span>
+            </div>
+            <ul class="feature-list mb-4 flex-grow-1">
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Безлимитные запросы</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>SLA 99.95%</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>On-premise решение</span></li>
+              <li><i data-lucide="check" style="width: 18px; height: 18px;"></i><span>Выделенный менеджер</span></li>
+            </ul>
+            <a href="#cta-form" class="btn btn-outline-modern w-100 mt-auto">Связаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="background: var(--bg-primary);">
+    <div class="container">
+      <div class="text-center mb-5 fade-in-up">
+        <h2 class="section-title">Часто задаваемые вопросы</h2>
+        <p class="section-subtitle mx-auto">
+          Ответы на популярные вопросы о работе с API
+        </p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion fade-in-up" id="faqAccordion">
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
+                  aria-expanded="true">
+                  Как быстро происходит проверка сертификата?
+                </button>
+              </h5>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Среднее время ответа API составляет менее 300 миллисекунд. Это позволяет интегрировать проверку в
+                  реальном времени без задержек для пользователей вашей системы.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq2">
+                  Какие реестры поддерживаются?
+                </button>
+              </h5>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Мы предоставляем доступ к официальным реестрам Федеральной службы по аккредитации (Росаккредитация) и
+                  Федерального агентства по техническому регулированию и метрологии (ФСА). Данные обновляются в режиме
+                  реального времени.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq3">
+                  Можно ли проверить несколько сертификатов одновременно?
+                </button>
+              </h5>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Да, API поддерживает batch-запросы до 100 записей одновременно. Это оптимально для массовой проверки
+                  контрагентов или товаров при импорте операций.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq4">
+                  Как происходит оплата?
+                </button>
+              </h5>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Оплата производится ежемесячно по факту использования. Вы можете выбрать подходящий тариф или
+                  использовать pay-as-you-go модель. Для корпоративных клиентов доступны индивидуальные условия и
+                  постоплата.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq5">
+                  Соответствует ли сервис требованиям 152-ФЗ?
+                </button>
+              </h5>
+              <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Да, полностью. Все данные обрабатываются и хранятся на территории Российской Федерации. Мы используем
+                  современные методы шифрования и соблюдаем все требования законодательства о персональных данных.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h5 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq6">
+                  Что произойдёт, если я превышу лимит запросов?
+                </button>
+              </h5>
+              <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  При превышении лимита запросы будут возвращать ошибку 429 (Too Many Requests). Вы можете либо
+                  дождаться следующего расчётного периода, либо оперативно перейти на более высокий тариф через личный
+                  кабинет.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Form -->
+  <section id="cta-form" style="background: linear-gradient(135deg, var(--secondary) 0%, #1E293B 100%); color: white;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center mb-5 fade-in-up">
+          <h2 class="section-title" style="color: white;">Начните интеграцию сегодня</h2>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.125rem;">
+            Получите тестовый доступ за 5 минут. Никаких сложных настроек.
+          </p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-6 fade-in-up stagger-2">
+          <!--           <form class="card-modern"
+            style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.1);">
+            <div class="mb-3">
+              <input type="text" class="form-control form-control-modern" placeholder="Ваше имя"
+                style="background: rgba(255,255,255,0.95);">
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control form-control-modern" placeholder="Корпоративный email" required
+                style="background: rgba(255,255,255,0.95);">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control form-control-modern" placeholder="Название компании"
+                style="background: rgba(255,255,255,0.95);">
+            </div>
+            <div class="mb-4">
+              <select class="form-control form-control-modern"
+                style="background: rgba(255,255,255,0.95); color: var(--text-primary);">
+                <option value="" disabled selected>Планируемый объём запросов</option>
+                <option value="test">До 1 000/мес</option>
+                <option value="start">1 000 – 10 000/мес</option>
+                <option value="pro">10 000 – 50 000/мес</option>
+                <option value="enterprise">Более 50 000/мес</option>
+              </select>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="partnerCheck"
+                style="width: 18px; height: 18px; margin-top: 0.3rem;">
+              <label class="form-check-label" for="partnerCheck"
+                style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+                Интересует партнёрская программа для интеграторов
+              </label>
+            </div>
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="agree152" required
+                style="width: 18px; height: 18px; margin-top: 0.3rem;">
+              <label class="form-check-label" for="agree152" style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">
+                Согласен на обработку персональных данных в соответствии с 152-ФЗ
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary-gradient w-100 py-3">
+              <i data-lucide="send" style="width: 20px; height: 20px;"></i>
+              Получить доступ к API
+            </button>
+          </form> -->
+          <script src="https://forms.yandex.ru/_static/embed.js"></script><iframe
+            src="https://forms.yandex.ru/u/69aac14202848f4fa510da21?iframe=1" frameborder="0"
+            name="ya-form-69aac14202848f4fa510da21" width="650"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4 mb-3 mb-lg-0">
+          <a href="#" class="d-flex align-items-center gap-2 mb-3"
+            style="text-decoration: none; color: white; font-weight: 800; font-size: 1.5rem;">
+            <i data-lucide="shield-check" style="color: var(--primary); width: 28px; height: 28px;"></i>
+            CertAPI
+          </a>
+          <!--           <p class="mb-3" style="font-size: 0.95rem; max-width: 300px;">
+            API для проверки сертификатов соответствия из официальных реестров РФ. Быстро, надёжно, безопасно.
+          </p> -->
+          <div class="d-flex gap-3">
+            <a href="#" style="color: rgba(255,255,255,0.5);"><i data-lucide="github"
+                style="width: 20px; height: 20px;"></i></a>
+            <a href="#" style="color: rgba(255,255,255,0.5);"><i data-lucide="telegram"
+                style="width: 20px; height: 20px;"></i></a>
+            <a href="#" style="color: rgba(255,255,255,0.5);"><i data-lucide="mail"
+                style="width: 20px; height: 20px;"></i></a>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <p class="mb-3" style="font-size: 0.95rem; max-width: 300px;">
+            API для проверки сертификатов соответствия          </p>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <p class="mb-3" style="font-size: 0.95rem; max-width: 300px;">
+            из официальных реестров РФ. Быстро, надёжно, безопасно.
+          </p>
+        </div>
+        <!--         <div class="col-6 col-md-4 col-lg-2">
+          <h6>Продукт</h6>
+          <ul class="list-unstyled" style="font-size: 0.9rem;">
+            <li class="mb-2"><a href="#">Возможности</a></li>
+            <li class="mb-2"><a href="#">Тарифы</a></li>
+            <li class="mb-2"><a href="#">Документация</a></li>
+            <li class="mb-2"><a href="#">API Reference</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <h6>Компания</h6>
+          <ul class="list-unstyled" style="font-size: 0.9rem;">
+            <li class="mb-2"><a href="#">О нас</a></li>
+            <li class="mb-2"><a href="#">Партнёрам</a></li>
+            <li class="mb-2"><a href="#">Карьера</a></li>
+            <li class="mb-2"><a href="#">Контакты</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <h6>Поддержка</h6>
+          <ul class="list-unstyled" style="font-size: 0.9rem;">
+            <li class="mb-2"><a href="#">Help Center</a></li>
+            <li class="mb-2"><a href="#">Статус системы</a></li>
+            <li class="mb-2"><a href="#">Swagger</a></li>
+            <li class="mb-2"><a href="#">Сообщить об ошибке</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <h6>Legal</h6>
+          <ul class="list-unstyled" style="font-size: 0.9rem;">
+            <li class="mb-2"><a href="#">Privacy Policy</a></li>
+            <li class="mb-2"><a href="#">Terms of Service</a></li>
+            <li class="mb-2"><a href="#">Cookie Policy</a></li>
+            <li class="mb-2"><a href="#">152-ФЗ</a></li>
+          </ul>
+        </div> -->
+      </div>
+
+      <div class="border-top pt-4" style="border-color: rgba(255,255,255,0.1) !important;">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-2 mb-md-0">
+            <p class="mb-0" style="font-size: 0.875rem;">© 2026 ComplyMap. Все права защищены.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="mailto:hello@certapi.ru">complymap@mail.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Fixed Carousel - Manual switching only
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    let currentSlide = 0;
+
+    function goToSlide(index) {
+      // Hide all slides
+      slides.forEach(slide => slide.classList.remove('active'));
+      // Deactivate all indicators
+      indicators.forEach(ind => ind.classList.remove('active'));
+
+      // Show selected slide
+      slides[index].classList.add('active');
+      indicators[index].classList.add('active');
+      currentSlide = index;
+    }
+
+    // Manual click handlers
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+
+    // Scroll Animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navbar shadow on scroll
+    const navbar = document.querySelector('.navbar-modern');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
+
 </html>
